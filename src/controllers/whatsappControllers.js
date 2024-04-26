@@ -24,8 +24,7 @@ const ReceivedMessage = (req, res) => {
         var entry = (req.body["entry"])[0];
         var changes = (entry["changes"])[0];
         var value = changes["value"];
-        var messageObject = value["messages"];
-        console.log(messageObject);
+        var messageObject = value["messages"];        
         if(typeof messageObject != "undefined"){
             var messages = messageObject[0];
             var number = messages["from"];
@@ -46,10 +45,10 @@ const ReceivedMessage = (req, res) => {
 }
 
 function GetTextUser(messages){
-    var text = "";
+    var message_client = "";
     var typeMessge = messages["type"];
     if(typeMessge == "text"){
-        text = (messages["text"])["body"];
+        message_client = (messages["text"])["body"];
     }
     else if(typeMessge == "interactive"){
 
@@ -57,17 +56,17 @@ function GetTextUser(messages){
         var typeInteractive = interactiveObject["type"];
         
         if(typeInteractive == "button_reply"){
-            text = (interactiveObject["button_reply"])["title"];
+            message_client = (interactiveObject["button_reply"])["id"];
         }
         else if(typeInteractive == "list_reply"){
-            text = (interactiveObject["list_reply"])["title"];
+            message_client = (interactiveObject["list_reply"])["id"];
         }else{
             myConsole.log("sin mensaje");
         }
     }else{
         myConsole.log("sin mensaje");
     }
-    return text;
+    return message_client;
 }
 
 module.exports = {

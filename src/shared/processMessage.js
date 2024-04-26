@@ -1,20 +1,30 @@
-const whatsappModel = require("../shared/whatsappmodels");
 const whatsappService = require("../services/whatsappService");
-const checkClientExists = require("../util/api/checkclient")
+const checkClientExists = require("../util/api/checkclient");
+const flowInitClient = require("../roadmap/flowInitClient");
+const flowSignUp = require("../roadmap/flowSignUp");
+const flowSession = require("../roadmap/flowSession");
+
 
 async function Process(textUser, number){
-    textUser= textUser.toLowerCase();
-    var models = [];
+    textUser = textUser.toLowerCase();
 
     const exists = await checkClientExists(number);
-    // Se existir, manda mensagem de boas vindas
+    let models;
+
     if (exists) {
-        var model = whatsappModel.MessageText("¡Hola y bienvenido de nuevo!", number);
+        switch (exists.flow_roadmap) {
+            case 'trigger_follow':
+                console.log('Read to send Messages');
+                break;
+            case 'session_flow':    
+                models = await flowSession(exists,textUser);
+                break;
+            default:
+                models = await flowSignUp(exists,textUser); // fluxo padrão se nenhum caso for correspondido
+        }
     } else {
-        // Se não existir, manda mensagem de despedida
-        var model = whatsappModel.MessageText("Adiós 👋", number);
+        models = await flowInitClient(number,textUser);
     }
-    models.push(model);     
 
     models.forEach(model => {
         whatsappService.SendMessageWhatsApp(model);
@@ -26,4 +36,4 @@ async function Process(textUser, number){
 
 module.exports = {
     Process
-};
+}

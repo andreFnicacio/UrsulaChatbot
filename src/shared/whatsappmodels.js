@@ -11,6 +11,19 @@ function MessageText(textResponse, number){
     return data;
 }
 
+function QrCode(number,qrcode){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": number,
+        "type": "image",
+        "image": {
+            "id": qrcode
+        }
+    });
+    return data;    
+}
+
 function MessageList(number){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
@@ -63,7 +76,8 @@ function MessageList(number){
     });
     return data;
 }
-function MessageComprar(number){
+
+function Button(text,number,decision_ids){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
         "to": number,
@@ -71,22 +85,22 @@ function MessageComprar(number){
         "interactive": {
             "type": "button",
             "body": {
-                "text": "Selecciona uno de los productos"
+                "text": text
             },
             "action": {
                 "buttons": [
                     {
                         "type": "reply",
                         "reply": {
-                            "id": "option-laptop",
-                            "title": "Laptop"
+                            "id": decision_ids[0],
+                            "title": "Sim"
                         }
                     },
                     {
                         "type": "reply",
                         "reply": {
-                            "id": "option-computadora",
-                            "title": "Computadora"
+                            "id": decision_ids[1],
+                            "title": "Não"
                         }
                     }
                 ]
@@ -115,6 +129,7 @@ function MessageLocation(number){
 module.exports = {
 MessageText,
 MessageList,
-MessageComprar,
+Button,
+QrCode,
 MessageLocation
 };
