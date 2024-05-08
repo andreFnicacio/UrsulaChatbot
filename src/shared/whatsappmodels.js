@@ -24,7 +24,8 @@ function QrCode(number,qrcode){
     return data;    
 }
 
-function MessageList(number){
+
+function OperationDefault(number){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
         "to": number,
@@ -32,42 +33,42 @@ function MessageList(number){
         "interactive": {
             "type": "list",
             "body": {
-                "text": "✅ Tengo estas opciones"
+                "text": "✅ Opções"
             },
             "footer": {
-                "text": "Selecciona una de las opciones para poder atenderte"
+                "text": "Selecione uma das opções."
             },
             "action": {
-                "button": "Ver opciones",
+                "button": "Ver Opções",
                 "sections": [
                     {
-                        "title": "Compra y vende productos",
+                        "title": "Campanhas ✉️",
                         "rows": [
                             {
-                                "id": "main-comprar",
-                                "title": "Comprar",
-                                "description": "Compra los mejores productos para tu hogar"
+                                "id": "send_campaign",
+                                "title": "Disparar",
+                                "description": "Disparar camapanha cadastrada."
                             },
                             {
-                                "id": "main-vender",
-                                "title": "Vender",
-                                "description": "Vende tus productos"
+                                "id": "input_models",
+                                "title": "Modelos",
+                                "description": "Inserir e administrar modelos cadastrados."
+                            },
+                            {
+                                "id": "input_leads",
+                                "title": "Leads",
+                                "description": "Inserir e administrar contatos cadastrados."
                             }
                         ]
                     },
                     {
-                        "title": "📍Centro de atención",
+                        "title": "Conta ⚙️",
                         "rows": [
                             {
-                                "id": "main-agencia",
-                                "title": "Agencia",
-                                "description": "Puedes visitar nuestra agencia."
+                                "id": "close_session",
+                                "title": "Logout",
+                                "description": "Sair da sessão ativa."
                             },
-                            {
-                                "id": "main-contacto",
-                                "title": "Centro de contacto",
-                                "description": "Te atenderá uno de nuestro agentes."
-                            }
                         ]
                     }
                 ]
@@ -128,7 +129,7 @@ function MessageLocation(number){
 
 module.exports = {
 MessageText,
-MessageList,
+OperationDefault,
 Button,
 QrCode,
 MessageLocation

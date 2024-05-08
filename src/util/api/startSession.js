@@ -1,10 +1,10 @@
 const axios = require('axios');
 
-async function startSession(numberId,waitQrCode,token) {
-    const url = `http://localhost:21465/api/session_${numberId}/start-session`;
+async function startSession(session,token) {
+    console.log("Iniciando seção");
+    const url = `http://localhost:21465/api/${session}/start-session`;
     const postData = {
-        webhook: null,
-        waitQrCode:waitQrCode
+        waitQrCode:true
     };
 
     const config = {
@@ -21,7 +21,7 @@ async function startSession(numberId,waitQrCode,token) {
         return response.data;
     } catch (error) {
         if (error.response) {
-            console.error('Erro de resposta do servidor START SESSION: ', error.response.status, error.response.data);
+            console.error('Erro de resposta do servidor START SESSION (API): ', error.response.status, error.response.data);
         } else if (error.request) {
             console.error('Erro de requisição: ', error.request);
         } else {
@@ -30,5 +30,6 @@ async function startSession(numberId,waitQrCode,token) {
         return false;
     }
 }
+
 
 module.exports = startSession;

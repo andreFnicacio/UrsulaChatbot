@@ -9,7 +9,8 @@ async function inputClient(clientData) {
         unique_key: clientData.unique_key,
         id_session: clientData.id_session,
         id_phone: clientData.id_phone,
-        flow_roadmap: clientData.flow_roadmap
+        flow_roadmap: clientData.flow_roadmap,
+        step_flow: clientData.step_flow
     };
 
     const config = {

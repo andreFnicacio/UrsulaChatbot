@@ -7,7 +7,7 @@ async function flowInitClient(number,textUser) {
     textUser= textUser.toLowerCase();
     const randomLetters = generateRandomLetters(6);    
     switch (textUser) {
-        case 'signup_follow':
+        case 'confirm_follow':
             const clientData = {
                 name: "name",
                 email: "email",
@@ -15,24 +15,22 @@ async function flowInitClient(number,textUser) {
                 unique_key: "unique_key",
                 id_session: `session_${randomLetters}`,
                 id_phone: number,
-                flow_roadmap: "default",
-                step_flow: "" 
+                flow_roadmap: "signup_flow",
+                step_flow: "start" 
             };     
-            console.log(clientData);
-            const input = await inputClient(clientData);    
-            console.log(input);
-            models.push(whatsappModel.MessageText("Perfeito!! Vamos então inciar o cadastro de perfil tudo bem ?", number));            
-            break;
-
-        case 'await_follow':
-            models.push(whatsappModel.MessageText("Sem Problemas! Me chame quando quiser!", number));
-            break;                
-                
-        default:
-            var textClient = "Gostaria de criar um cadastro ? 😊";
+            await inputClient(clientData);    
+            var textClient = "Maravilha!! Vamos agora pegar algumas informações ok? 😄";
             const decision_tree = ["signup_follow", "await_follow"];
             var button = whatsappModel.Button(textClient,number,decision_tree);            
-            models.push(button);                      
+            models.push(button);                                          
+            break;              
+                
+        default:
+            var textClient = "Percebi que não tenho você na base de dados 😬\nGostaria de iniciar um *Cadastro Manual* ?";
+            const decision_tree_way = ["confirm_follow", "await_follow"];
+            var button = whatsappModel.Button(textClient,number,decision_tree_way);            
+            models.push(button);  
+            break;                                    
             
     }
     return models;    

@@ -1,6 +1,8 @@
 const fs = require("fs");
 const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 const processMessage = require("../shared/processMessage");
+const webhook = require("../roadmap/webhookStatus");
+
 const VerifyToken = (req, res) => {
     
     try{
@@ -18,6 +20,19 @@ const VerifyToken = (req, res) => {
         res.status(400).send();
     }
 }
+
+const StatusSession = async (req, res) => {
+    
+    try{ 
+        await webhook.status(req,res);
+        
+        res.send("Ok");
+
+    }catch(e){
+        res.status(400).send();
+    }
+}
+
 
 const ReceivedMessage = (req, res) => {
     try{
@@ -71,5 +86,6 @@ function GetTextUser(messages){
 
 module.exports = {
     VerifyToken,
-    ReceivedMessage
+    ReceivedMessage,
+    StatusSession
 }

@@ -28,7 +28,6 @@ async function uploadImage(session) {
 
     try {
         const response = await axios.post("https://graph.facebook.com/v18.0/262715723599699/media", formData, config);
-        console.log('Upload successful:', response.data);
         return response.data.id;
     } catch (error) {
         if (error.response) {

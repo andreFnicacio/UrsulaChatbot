@@ -1,6 +1,10 @@
 const redis = require('redis');
+
 const client = redis.createClient({
-    url: 'redis://default:bXeBeZaIhatruSyffQeqszeRktdoWImJ@viaduct.proxy.rlwy.net:32106' // ajuste isso para a URL do seu servidor Redis
+    url: 'redis://default:bXeBeZaIhatruSyffQeqszeRktdoWImJ@viaduct.proxy.rlwy.net:32106', // ajuste isso para a URL do seu servidor Redis
+    socket: {
+        connectTimeout: 500000
+    }
 });
 
 client.on('error', (err) => console.error('Redis Client Error', err));

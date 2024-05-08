@@ -2,11 +2,12 @@ const axios = require('axios');
 const updateClient = require("./updateClient");
 const uploadBase64 = require("./uploadBase64");
 const sharp = require('sharp');
+const redis = require("../redis/redis_config");
 
 
-async function generateQrcode(session,user) {
+async function generateQrcode(session,user,token) {
     //Gerando Token da Seção & Startando await QrCode like true    
-    const token = await generateToken(session);
+    var redisClient = await redis.getUserState(session)    
     try {
         const base64 = await startSession(session,token);
         const base64Image = base64.qrcode.split(';base64,').pop();
@@ -26,8 +27,8 @@ async function generateQrcode(session,user) {
         //Atualizando Infos do User
         user.token = token;
         const updateData = {"id_phone": user.phone, "updateData": user};
-        await updateClient(updateData);            
-        
+        await updateClient(updateData);  
+
         return objectIdimg;
     } catch (error) {
         if (error.response) {
@@ -41,25 +42,12 @@ async function generateQrcode(session,user) {
     }
 }
 
-async function generateToken(session) {
-    console.log("Iniciando Geração de Token");
-    try {
-        const response = await axios.post(`http://localhost:21465/api/${session}/THISISMYSECURETOKEN/generate-token`);
-        console.log("Token capturado: ", response.data.token);
-
-        return response.data.token;
-    } catch (error) {
-        console.error('Erro ao verificar cliente GENERATE TOKEN (GET_QRCODE): ', error);
-        return false;
-    }
-}
-
 
 async function startSession(session,token) {
     console.log("Iniciando seção");
     const url = `http://localhost:21465/api/${session}/start-session`;
     const postData = {
-        webhook: null,
+        webhook: "https://4e18-2804-1e68-c803-737-a827-64e0-a37c-2f88.ngrok-free.app/whatsapp/status",
         waitQrCode:true
     };
 

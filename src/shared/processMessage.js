@@ -3,24 +3,30 @@ const checkClientExists = require("../util/api/checkclient");
 const flowInitClient = require("../roadmap/flowInitClient");
 const flowSignUp = require("../roadmap/flowSignUp");
 const flowSession = require("../roadmap/flowSession");
+const flowTrigger = require("../roadmap/flowTrigger");
+const flowDefault = require("../roadmap/flowDefault");
 
 
 async function Process(textUser, number){
     textUser = textUser.toLowerCase();
 
-    const exists = await checkClientExists(number);
+    const user = await checkClientExists(number);
     let models;
 
-    if (exists) {
-        switch (exists.flow_roadmap) {
-            case 'trigger_follow':
-                console.log('Read to send Messages');
+    if (user) {
+
+        switch (user.flow_roadmap) {
+            case 'trigger_flow':
+                models = await flowTrigger(user,textUser);
                 break;
             case 'session_flow':    
-                models = await flowSession(exists,textUser);
+                models = await flowSession(user,textUser);
                 break;
+            case 'signup_flow':    
+                models = await flowSignUp(user,textUser); // fluxo padrão se nenhum caso for correspondido
+                break;                
             default:
-                models = await flowSignUp(exists,textUser); // fluxo padrão se nenhum caso for correspondido
+                models = await flowDefault(user,textUser); // fluxo padrão se nenhum caso for correspondido
         }
     } else {
         models = await flowInitClient(number,textUser);
