@@ -1,7 +1,8 @@
 const axios = require('axios');
 
-async function closeSession(session, token) {
+async function logoutSession(session, token) {
     try {
+        console.log(session, token);
         const config = {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -9,8 +10,7 @@ async function closeSession(session, token) {
             }
         };
         // Se espera enviar dados na requisição, você deve incluir um objeto vazio ou os dados reais como segundo parâmetro antes de `config`.
-        const response = await axios.post(`http://localhost:21465/api/${session}/logout-session`, {}, config);
-        console.log("Close Data:",response.data);        
+        const response = await axios.post(`http://localhost:21465/api/${session}/close-session`, {}, config);
         return response.data;
     } catch (error) {
         console.error('Erro ao fechar sessão: ', error);
@@ -18,4 +18,4 @@ async function closeSession(session, token) {
     }
 }
 
-module.exports = closeSession;
+module.exports = logoutSession;

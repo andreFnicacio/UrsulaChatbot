@@ -5,7 +5,6 @@ async function flowInitClient(number,textUser) {
     // Se não existir, manda mensagem de despedida
     var models = [];
     textUser= textUser.toLowerCase();
-    const randomLetters = generateRandomLetters(6);    
     switch (textUser) {
         case 'confirm_follow':
             const clientData = {
@@ -13,21 +12,25 @@ async function flowInitClient(number,textUser) {
                 email: "email",
                 phone: number,
                 unique_key: "unique_key",
-                id_session: `session_${randomLetters}`,
+                id_session: `session_${number}`,
                 id_phone: number,
                 flow_roadmap: "signup_flow",
                 step_flow: "start" 
             };     
             await inputClient(clientData);    
             var textClient = "Maravilha!! Vamos agora pegar algumas informações ok? 😄";
-            const decision_tree = ["signup_follow", "await_follow"];
+            const decision_tree = ["signup_follow", "await_step"];
             var button = whatsappModel.Button(textClient,number,decision_tree);            
             models.push(button);                                          
-            break;              
+            break;  
+            
+        case 'await_init':
+            models.push(whatsappModel.MessageText("Sem problemas! Quando quiser é so me chamar!", number));
+            break;
                 
         default:
             var textClient = "Percebi que não tenho você na base de dados 😬\nGostaria de iniciar um *Cadastro Manual* ?";
-            const decision_tree_way = ["confirm_follow", "await_follow"];
+            const decision_tree_way = ["confirm_follow", "await_init"];
             var button = whatsappModel.Button(textClient,number,decision_tree_way);            
             models.push(button);  
             break;                                    

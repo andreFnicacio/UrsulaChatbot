@@ -1,16 +1,26 @@
 const axios = require('axios');
 const updateClient = require("./updateClient");
 const uploadBase64 = require("./uploadBase64");
+const getQrCode = require("./getQrCode");
 const sharp = require('sharp');
 const redis = require("../redis/redis_config");
+var base64Image;
+var base64;
 
-
-async function generateQrcode(session,user,token) {
+async function generateQrcode(session,user,token,revive = false) {
     //Gerando Token da Seção & Startando await QrCode like true    
     var redisClient = await redis.getUserState(session)    
     try {
-        const base64 = await startSession(session,token);
-        const base64Image = base64.qrcode.split(';base64,').pop();
+        if (!revive){
+            base64 = await startSession(session,token);
+            base64Image = base64.qrcode.split(';base64,').pop();            
+        }
+        else{
+            await getQrCode(session,token);
+            base64 = await startSession(session,token);
+            base64Image = base64.qrcode.split(';base64,').pop();            
+        }
+        
 
         await sharp(Buffer.from(base64Image, 'base64'))
           .toFile(`qrcode_${session}.png`)

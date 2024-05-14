@@ -1,4 +1,5 @@
 const axios = require('axios');
+const redis = require("../redis/redis_config");
 
 async function inputClient(clientData) {
     const url = 'http://localhost:21465/client/input';

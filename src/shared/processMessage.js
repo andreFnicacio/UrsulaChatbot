@@ -26,7 +26,7 @@ async function Process(textUser, number){
                 models = await flowSignUp(user,textUser); // fluxo padrão se nenhum caso for correspondido
                 break;                
             default:
-                models = await flowDefault(user,textUser); // fluxo padrão se nenhum caso for correspondido
+                models = await flowDefault(user,textUser);
         }
     } else {
         models = await flowInitClient(number,textUser);

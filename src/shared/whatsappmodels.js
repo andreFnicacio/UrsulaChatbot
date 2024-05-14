@@ -33,7 +33,7 @@ function OperationDefault(number){
         "interactive": {
             "type": "list",
             "body": {
-                "text": "✅ Opções"
+                "text": "Menu de Operações ✅"
             },
             "footer": {
                 "text": "Selecione uma das opções."
@@ -65,10 +65,10 @@ function OperationDefault(number){
                         "title": "Conta ⚙️",
                         "rows": [
                             {
-                                "id": "close_session",
-                                "title": "Logout",
-                                "description": "Sair da sessão ativa."
-                            },
+                                "id": "delete_account",
+                                "title": "Delete",
+                                "description": "Deletar minha conta."
+                            },                            
                         ]
                     }
                 ]

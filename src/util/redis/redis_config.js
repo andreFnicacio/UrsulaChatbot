@@ -11,6 +11,8 @@ client.on('error', (err) => console.error('Redis Client Error', err));
 client.connect();
 
 async function setUserState(userId,state) {
+    console.log("UserID:", userId);
+    console.log("State:",state);
     try {
         await client.setEx(userId, state.deadline, JSON.stringify(state));
     } catch (error) {
@@ -18,6 +20,21 @@ async function setUserState(userId,state) {
         throw error; // Re-lança o erro para garantir que seja tratado mais acima na cadeia de chamadas
     }
 }
+
+async function deleteUserState(userId) {
+    try {
+        const result = await client.del(userId);
+        if (result === 1) {
+            console.log('User state deleted successfully');
+        } else {
+            console.log('No state found for user to delete');
+        }
+    } catch (error) {
+        console.error('Failed to delete user state in Redis', error);
+        throw error; // Re-lança o erro para garantir que seja tratado mais acima na cadeia de chamadas
+    }
+}
+
 
 async function getUserState(userId) {
     try {
@@ -29,4 +46,4 @@ async function getUserState(userId) {
     }
 }
 
-module.exports = {setUserState,getUserState}
+module.exports = {setUserState,getUserState,deleteUserState}

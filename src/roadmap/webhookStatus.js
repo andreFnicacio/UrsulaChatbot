@@ -1,6 +1,7 @@
 const whatsappModel = require("../shared/whatsappmodels");
 const whatsappService = require("../services/whatsappService");
 const updateClient = require("../util/api/updateClient");
+const closeSession = require("../util/api/closeSession"); 
 
 const inputLeads = require("../util/api/inputLeads");
 var redis = require("../util/redis/redis_config");
@@ -8,48 +9,44 @@ var redis = require("../util/redis/redis_config");
 async function status(req, res){    
     const status = req.body.status;
     const type = req.body.type;
-    const sessionClient = req.body.session;        
-    //PEGAR DADOS DO USUARIO: PHONE, SESSION, TOKEN
+    const session = req.body.session;     
+    var redisClient = await redis.getUserState(session);
+    console.log(status);
 
-    if (status === "qrReadError"){        
-        var redisClient = await redis.getUserState(sessionClient);
-
+    if (status === "qrReadError" && !type){        
         var textClient = `Oii ${redisClient.name}, tudo bem?! Tivemos um problema na hora da leitura do Qr Code 🥺!\nGostaria de tentar novamente ?`;
         const decision_tree_way = ["generate_qrcode", "await_session"];
         var button = whatsappModel.Button(textClient,redisClient.phone,decision_tree_way);            
 
         whatsappService.SendMessageWhatsApp(button);       
-    }else if(status === "inChat"){
-        var redisClient = await redis.getUserState(sessionClient);
-        
+    }else if(status === "inChat"  && !type){        
         redisClient.step_flow = "default_step";
         redisClient.flow_roadmap = "default_flow";
 
-        await inputLeads(sessionClient,redisClient.token);        
+        await inputLeads(session,redisClient.token);        
         const updateData = {"id_phone": redisClient.phone, "updateData": redisClient};
 
         await updateClient(updateData);           
-        await redis.setUserState(sessionClient, redisClient);                   
+        await redis.setUserState(session, redisClient);                   
 
         var operationList = whatsappModel.OperationDefault(redisClient.phone); 
         whatsappService.SendMessageWhatsApp(operationList);    
              
-    }else if(status === "desconnectedMobile"){
-        var redisClient = await redis.getUserState(sessionClient);
+    }else if(status === "browserClose"  && !type){
+        const close = await closeSession(redisClient.id_session,redisClient.token);                    
+        console.log(close);
+        
+        redisClient.flow_roadmap = "session_flow"; 
+        redisClient.step_flow = "close_conect"; 
+        redisClient.deadline = 86400;  
 
-        redisClient.step_flow = 'generate_qrcode';   
-        redisClient.flow_roadmap = "session_flow";                 
+        const updateData = {"id_phone": redisClient.phone, "updateData": redisClient}; 
+        await updateClient(updateData);                       
 
-        await inputLeads(sessionClient,redisClient.token);        
-        const updateData = {"id_phone": redisClient.phone, "updateData": redisClient};
+        await redis.setUserState(session, redisClient);           
 
-        await updateClient(updateData);           
-        await redis.setUserState(sessionClient, redisClient);                   
-
-        var textClient = `Opá ${user.name}, tudo certo?! O sistema me alertou que sua conexão foi encerrada 🥺!!\n\nGostaria de iniciar a sessão novamente ?`;
-        const decision_tree_way = ["start_session", "await_session"];
-        var button = whatsappModel.Button(textClient,user.phone,decision_tree_way);                      
-        whatsappService.SendMessageWhatsApp(button);         
+        const textSubmit = whatsappModel.MessageText(`Sua conta foi deconectada 🥺. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem 🥰!!`, redisClient.phone)
+        whatsappService.SendMessageWhatsApp(textSubmit);              
     }
         
 }
