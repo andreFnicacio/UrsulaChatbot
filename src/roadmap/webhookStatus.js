@@ -1,7 +1,8 @@
 const whatsappModel = require("../shared/whatsappmodels");
 const whatsappService = require("../services/whatsappService");
 const updateClient = require("../util/api/updateClient");
-const closeSession = require("../util/api/closeSession"); 
+const clearDataSession = require("../util/api/clearDataSession");
+ 
 
 const inputLeads = require("../util/api/inputLeads");
 var redis = require("../util/redis/redis_config");
@@ -10,45 +11,61 @@ async function status(req, res){
     const status = req.body.status;
     const type = req.body.type;
     const session = req.body.session;     
-    var redisClient = await redis.getUserState(session);
-    console.log(status);
+    var user = await redis.getUserState(session);
+    const phone = user.phone;
+    const token = user.token;
+
+    if (type === "text/csv"){
+        const textSubmit = whatsappModel.MessageText(`Lista de Leads Cadastrados!! Ja está disponivel para o disparo de campanhas 🥰`, phone)
+        whatsappService.SendMessageWhatsApp(textSubmit);                      
+    }
 
     if (status === "qrReadError" && !type){        
-        var textClient = `Oii ${redisClient.name}, tudo bem?! Tivemos um problema na hora da leitura do Qr Code 🥺!\nGostaria de tentar novamente ?`;
+        var textClient = `Oii ${user.name}, tudo bem?! Tivemos um problema na hora da leitura do Qr Code 🥺!\nGostaria de tentar novamente ?`;
         const decision_tree_way = ["generate_qrcode", "await_session"];
-        var button = whatsappModel.Button(textClient,redisClient.phone,decision_tree_way);            
+        var button = whatsappModel.Button(textClient,phone,decision_tree_way);            
 
         whatsappService.SendMessageWhatsApp(button);       
     }else if(status === "inChat"  && !type){        
-        redisClient.step_flow = "default_step";
-        redisClient.flow_roadmap = "default_flow";
+        user.step_flow = "default_step";
+        user.flow_roadmap = "default_flow";
 
-        await inputLeads(session,redisClient.token);        
-        const updateData = {"id_phone": redisClient.phone, "updateData": redisClient};
+        //await inputLeads(session,token);        
+        const updateData = {"id_phone": phone, "updateData": user};
 
         await updateClient(updateData);           
-        await redis.setUserState(session, redisClient);                   
+        await redis.setUserState(session, user);                   
 
-        var operationList = whatsappModel.OperationDefault(redisClient.phone); 
+        var operationList = whatsappModel.OperationDefault(phone); 
         whatsappService.SendMessageWhatsApp(operationList);    
              
     }else if(status === "browserClose"  && !type){
-        const close = await closeSession(redisClient.id_session,redisClient.token);                    
-        console.log(close);
-        
-        redisClient.flow_roadmap = "session_flow"; 
-        redisClient.step_flow = "close_conect"; 
-        redisClient.deadline = 86400;  
 
-        const updateData = {"id_phone": redisClient.phone, "updateData": redisClient}; 
+        await clearDataSession(session,token);
+        
+        user.flow_roadmap = "session_flow"; 
+        user.step_flow = "await_conect"; 
+        user.deadline = 86400;  
+
+        const updateData = {"id_phone": phone, "updateData": user}; 
         await updateClient(updateData);                       
 
-        await redis.setUserState(session, redisClient);           
+        await redis.setUserState(session, user);           
 
-        const textSubmit = whatsappModel.MessageText(`Sua conta foi deconectada 🥺. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem 🥰!!`, redisClient.phone)
+        const textSubmit = whatsappModel.MessageText(`Sua conta foi deconectada 🥺. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem 🥰!!`, phone)
         whatsappService.SendMessageWhatsApp(textSubmit);              
     }
         
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function delayedFunction() {
+    console.log("Iniciando a função...");
+    await sleep(4000); // Pausa por 4 segundos
+    console.log("Executando após 4 segundos!");
 }
 
 module.exports = {status}

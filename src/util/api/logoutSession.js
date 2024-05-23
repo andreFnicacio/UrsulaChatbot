@@ -10,7 +10,7 @@ async function logoutSession(session, token) {
             }
         };
         // Se espera enviar dados na requisição, você deve incluir um objeto vazio ou os dados reais como segundo parâmetro antes de `config`.
-        const response = await axios.post(`http://localhost:21465/api/${session}/close-session`, {}, config);
+        const response = await axios.post(`https://api-wpp-production.up.railway.app/api/${session}/close-session`, {}, config);
         return response.data;
     } catch (error) {
         console.error('Erro ao fechar sessão: ', error);

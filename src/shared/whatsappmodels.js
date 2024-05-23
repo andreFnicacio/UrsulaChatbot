@@ -24,6 +24,74 @@ function QrCode(number,qrcode){
     return data;    
 }
 
+function modelDoc(number,qrcode){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": number,
+        "type": "document",
+        "document": {
+            "link": "https://models4lead.s3.us-east-2.amazonaws.com/CRM+RAIZES.csv",
+            "caption": "Planilha Modelo",
+            "filename": "Modelo_Lista_Leads.csv"
+        }
+    });
+    return data;    
+}
+
+
+function OperationLeads(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {
+                "text": "Leads ✉️"
+            },
+            "footer": {
+                "text": "Selecione uma das opções."
+            },
+            "action": {
+                "button": "Ver Opções",
+                "sections": [
+                    {
+                        "title": "Gerenciar 🤖",
+                        "rows": [
+                            {
+                                "id": "get_qrcodefixed",
+                                "title": "QrCode 🤳",
+                                "description": "Inserir clientes por qrcode."
+                            },
+                            {
+                                "id": "get_docfile",
+                                "title": "Planilha 📑",
+                                "description": "Enviar modelo (excel/csv) de clientes."
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Gerencia ⚙️",
+                        "rows": [
+                            {
+                                "id": "retur_default",
+                                "title": "Menu 🔙",
+                                "description": "Retornar para menu principal."
+                            },{
+                                "id": "delete_leads",
+                                "title": "Delete 🔴",
+                                "description": "Deletar todos os leads."
+                            }                            
+                        ]
+                    }
+                ]
+            }
+        }
+    });
+    return data;
+}
+
 
 function OperationDefault(number){
     const data = JSON.stringify({
@@ -130,7 +198,9 @@ function MessageLocation(number){
 module.exports = {
 MessageText,
 OperationDefault,
+OperationLeads,
 Button,
 QrCode,
-MessageLocation
+MessageLocation,
+modelDoc
 };

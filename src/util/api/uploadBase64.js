@@ -2,8 +2,8 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 
-async function uploadImage(session) {
-    const filePath = `qrcode_${session}.png`;
+async function uploadImage(session, file = false) {
+    const filePath = file === false ? `qrcode_${session}.png`: file;
 
     // Verifica se o arquivo existe
     if (!fs.existsSync(filePath)) {

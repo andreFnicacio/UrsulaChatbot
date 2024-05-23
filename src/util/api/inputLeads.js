@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function inputLeads(session,token) {
     console.log("START INPUT LEADS");
-    const url = `http://localhost:21465/api/${session}/inputleads`;
+    const url = `https://api-wpp-production.up.railway.app/api/${session}/inputleads`;
     const postData = {
         categorie: "default",
         lead: [

@@ -8,8 +8,7 @@ var base64Image;
 var base64;
 
 async function generateQrcode(session,user,token,revive = false) {
-    //Gerando Token da Seção & Startando await QrCode like true    
-    var redisClient = await redis.getUserState(session)    
+    //Gerando Token da Seção & Startando await QrCode like true        
     try {
         if (!revive){
             base64 = await startSession(session,token);
@@ -55,7 +54,7 @@ async function generateQrcode(session,user,token,revive = false) {
 
 async function startSession(session,token) {
     console.log("Iniciando seção");
-    const url = `http://localhost:21465/api/${session}/start-session`;
+    const url = `https://api-wpp-production.up.railway.app/api/${session}/start-session`;
     const postData = {
         webhook: "https://4e18-2804-1e68-c803-737-a827-64e0-a37c-2f88.ngrok-free.app/whatsapp/status",
         waitQrCode:true

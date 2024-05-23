@@ -39,8 +39,10 @@ async function flowDefault(user,textUser) {
             models.push(whatsappModel.MessageText(`Eita! Essa operação está em desenvolvimento 😎`, phone));                                      
             break;              
         case 'input_leads':
-            models.push(whatsappModel.MessageText(`Otimo! Preciso que me envie um arquivo *csv* seguindo o modelo enviado.`, phone));                                      
-            await sendDocumentModel(phone);
+            user.step_flow = 'default';
+            user.flow_roadmap = 'leads_flow';                   
+            var operationList = whatsappModel.OperationLeads(phone); 
+            models.push(operationList);
             break;                
         case 'await_session':
             models.push(whatsappModel.MessageText(`Ok ${user.name}! Me chame novamento quando quiser!! 😊`, phone));             
@@ -67,6 +69,11 @@ async function flowDefault(user,textUser) {
             break;                                                      
             
     }
+    const updateData = {"id_phone": phone, "updateData": user};
+    await updateClient(updateData);            
+
+    await redis.setUserState(session, user);
+        
     return models;    
 }
 

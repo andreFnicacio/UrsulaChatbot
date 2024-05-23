@@ -2,7 +2,6 @@ const whatsappService = require("../services/whatsappService");
 const whatsappModel = require("../shared/whatsappmodels");
 const redis = require("../util/redis/redis_config");
 const generateQrcode = require("../util/api/generateQrcode");
-const closeSession = require("../util/api/closeSession");
 const axios = require('axios');
 
 //Atualizando Infos do User
@@ -22,7 +21,6 @@ async function flowSession(user,textUser) {
 
    //Check Answer
     if (textUser === "await_session"){
-        await closeSession(session,token);
         user.step_flow = "await_conect"; 
 
         const updateData = {"id_phone": phone, "updateData": user}; 
@@ -33,7 +31,6 @@ async function flowSession(user,textUser) {
         return models;
     }
     else if (textUser === "repeat_qrcode"){ stepFlow = "generate_qrcode"}
-    else if (textUser === "restart_session"){ stepFlow = "restart_session"};    
 
     
 
@@ -54,26 +51,10 @@ async function flowSession(user,textUser) {
 
         case 'close_conect':
             var textClient = `Olá ${user.name}, tudo bem ?! Verifiquei no sistema e sua sessão foi desconectada!!\nGostaria de iniciar a sessão novamente ? 😁`;
-            const close_tree_way = ["restart_session", "await_session"];
+            const close_tree_way = ["repeat_qrcode", "await_session"];
             var button = whatsappModel.Button(textClient,phone,close_tree_way);            
             models.push(button);    
-            break;
-            
-        case 'restart_session':
-            token = await generateToken(session);
-            user.token = token;
-                        
-            const textRestart = whatsappModel.MessageText(`Aguarde um momento, gerando um novo *QRCODE* 🤓`, phone)
-            whatsappService.SendMessageWhatsApp(textRestart);   
-                     
-            const new_connect = await generateQrcode(session,user,token);
-            models.push(whatsappModel.QrCode(phone,new_connect));  
-
-            var responseToclient = "Lembre de fazer a leitura utilizando seu *aplicativo oficial* do Whatsapp ✅\n\nPrecisa gerar um novo QrCode ? 😊";
-            const decision_tree = ["restart_session", "await_session"];
-            var button = whatsappModel.Button(responseToclient,phone,decision_tree);    
-            models.push(button);            
-            break;              
+            break;       
 
         default:     
             var textClient = `Olá ${user.name}, tudo bem ?! Verifiquei no sistema e sua sessão não está iniciada!!\nGostaria de iniciar a sessão agora ? 😁`;
@@ -93,7 +74,7 @@ async function flowSession(user,textUser) {
 
 async function generateToken(session) {
     try {
-        const response = await axios.post(`http://localhost:21465/api/${session}/THISISMYSECURETOKEN/generate-token`);
+        const response = await axios.post(`https://api-wpp-production.up.railway.app/api/${session}/THISISMYSECURETOKEN/generate-token`);
 
         return response.data.token;
     } catch (error) {

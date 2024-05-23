@@ -2,7 +2,7 @@ const axios = require('axios');
 const redis = require("../redis/redis_config");
 
 async function inputClient(clientData) {
-    const url = 'http://localhost:21465/client/input';
+    const url = 'https://api-wpp-production.up.railway.app/client/input';
     const postData = {        
         name: clientData.name,
         email: clientData.email,

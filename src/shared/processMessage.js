@@ -5,6 +5,7 @@ const flowSignUp = require("../roadmap/flowSignUp");
 const flowSession = require("../roadmap/flowSession");
 const flowTrigger = require("../roadmap/flowTrigger");
 const flowDefault = require("../roadmap/flowDefault");
+const flowLeads = require("../roadmap/flowLeads");
 
 
 async function Process(textUser, number){
@@ -24,7 +25,10 @@ async function Process(textUser, number){
                 break;
             case 'signup_flow':    
                 models = await flowSignUp(user,textUser); // fluxo padrão se nenhum caso for correspondido
-                break;                
+                break;    
+            case 'leads_flow':    
+                models = await flowLeads(user,textUser); // fluxo padrão se nenhum caso for correspondido
+                break;                                
             default:
                 models = await flowDefault(user,textUser);
         }
