@@ -3,8 +3,6 @@ const whatsappService = require("../services/whatsappService");
 const updateClient = require("../util/api/updateClient");
 const clearDataSession = require("../util/api/clearDataSession");
  
-
-const inputLeads = require("../util/api/inputLeads");
 var redis = require("../util/redis/redis_config");
 
 async function status(req, res){    
@@ -26,9 +24,10 @@ async function status(req, res){
         var button = whatsappModel.Button(textClient,phone,decision_tree_way);            
 
         whatsappService.SendMessageWhatsApp(button);       
-    }else if(status === "inChat"  && !type){        
+    }else if(status === "inChat"  && !type && !user.session_status){        
         user.step_flow = "default_step";
         user.flow_roadmap = "default_flow";
+        user.session_status = true;
 
         //await inputLeads(session,token);        
         const updateData = {"id_phone": phone, "updateData": user};
@@ -45,6 +44,7 @@ async function status(req, res){
         
         user.flow_roadmap = "session_flow"; 
         user.step_flow = "await_conect"; 
+        user.session_status = false;        
         user.deadline = 86400;  
 
         const updateData = {"id_phone": phone, "updateData": user}; 

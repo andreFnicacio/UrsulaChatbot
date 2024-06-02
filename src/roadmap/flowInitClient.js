@@ -14,6 +14,7 @@ async function flowInitClient(number,textUser) {
                 unique_key: "unique_key",
                 id_session: `session_${number}`,
                 id_phone: number,
+                session_status: false,
                 flow_roadmap: "signup_flow",
                 step_flow: "start" 
             };     
