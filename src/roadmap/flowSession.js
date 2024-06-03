@@ -36,28 +36,28 @@ async function flowSession(user,textUser) {
 
     switch (stepFlow) {
         case 'generate_qrcode':
-            const textSubmit = whatsappModel.MessageText(`Aguarde um momento, gerando *QRCODE* 🖖`, phone)
+            const textSubmit = whatsappModel.MessageText(`Só um momento, estou gerando o seu *QR Code* 🖖`, phone)
             whatsappService.SendMessageWhatsApp(textSubmit);  
             token = await generateToken(session);
             user.token = token;
             const qrcode = await generateQrcode(session,user,token);
             models.push(whatsappModel.QrCode(phone,qrcode));  
 
-            var responseToclient = "Lembre de fazer a leitura utilizando seu *aplicativo oficial* do Whatsapp ✅\n\nPrecisa gerar um novo QrCode ? 😊";
+            var responseToclient = "Lembre-se de fazer a leitura utilizando o seu aplicativo oficial do WhatsApp ✅\n\nSolicitamos esse QR Code para garantir a sua segurança e autenticidade ao acessar nossos serviços, facilitando a sua experiência.\n\nPrecisa gerar um novo QrCode ? 😊";
             const decisions = ["repeat_qrcode", "await_session"];
             var button = whatsappModel.Button(responseToclient,phone,decisions);    
             models.push(button);            
             break;  
 
         case 'close_conect':
-            var textClient = `Olá ${user.name}, tudo bem ?! Verifiquei no sistema e sua sessão foi desconectada!!\nGostaria de iniciar a sessão novamente ? 😁`;
+            var textClient = `Opa ${user.name}, tudo bem ?! tudo bem? Percebi que sua sessão terminou.!!\nGostaria de iniciar a sessão novamente ? 😁`;
             const close_tree_way = ["repeat_qrcode", "await_session"];
             var button = whatsappModel.Button(textClient,phone,close_tree_way);            
             models.push(button);    
             break;       
 
         default:     
-            var textClient = `Olá ${user.name}, tudo bem ?! Verifiquei no sistema e sua sessão não está iniciada!!\nGostaria de iniciar a sessão agora ? 😁`;
+            var textClient = `Opa ${user.name}, tudo certo ?! tudo bem? Percebi que sua sessão não foi iniciada!!\nGostaria de iniciar a sessão agora ? 😁`;
             const decision_tree_way = ["repeat_qrcode", "await_session"];
             var button = whatsappModel.Button(textClient,phone,decision_tree_way);            
             models.push(button);    

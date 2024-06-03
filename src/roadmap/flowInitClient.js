@@ -30,7 +30,7 @@ async function flowInitClient(number,textUser) {
             break;
                 
         default:
-            var textClient = "Percebi que não tenho você na base de dados 😬\nGostaria de iniciar um *Cadastro Manual* ?";
+            var textClient = "Oi! Percebi que ainda não tenho você na minha base de dados 😬.\nPrecisamos do seu cadastro para personalizar sua experiência, garantir sua segurança e facilitar o acesso a todos os nossos serviços, ajudando você de forma mais rápida e eficiente. 😊\nGostaria de iniciar um *Cadastro Manual* ?";
             const decision_tree_way = ["confirm_follow", "await_init"];
             var button = whatsappModel.Button(textClient,number,decision_tree_way);            
             models.push(button);  

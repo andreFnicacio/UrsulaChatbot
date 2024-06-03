@@ -59,7 +59,7 @@ async function flowSignUp(user,textUser) {
             user.id_session = user.id_session;
             user.phone = user.phone;
             user.deadline = 300;
-            models.push(whatsappModel.MessageText("Pra começar, me informe seu nome por favor!? 😊", phoneClient));
+            models.push(whatsappModel.MessageText("Pra começar, me informe seu nome por favor!? 😊 _(Aguardo 5 minutos pela sua resposta)_", phoneClient));
             break;
     
         case 'ask_name': // Novo caso para validar o nome
@@ -67,9 +67,9 @@ async function flowSignUp(user,textUser) {
                 user.name = capitalizeWords(textUser);
                 user.step_flow = 'validate_email';
                 user.deadline = 300;                
-                models.push(whatsappModel.MessageText(`Maravilha *${user.name}*! Agora preciso saber seu email.`, phoneClient));
+                models.push(whatsappModel.MessageText(`Maravilha *${user.name}*! ! Agora, pode me informar seu e-mail? _(Aguardo 5 minutos pela sua resposta)_`, phoneClient));
             } else {
-                models.push(whatsappModel.MessageText("O nome fornecido não é válido. Por favor, informe um nome sem caracteres especiais e com pelo menos 3 letras.", phoneClient));
+                models.push(whatsappModel.MessageText("Oops, parece que o nome fornecido não é válido. Tente novamente com um nome sem caracteres especiais e com pelo menos 3 letras, por favor.", phoneClient));
             }
             break;
 
@@ -77,9 +77,9 @@ async function flowSignUp(user,textUser) {
             if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(textUser)) {  // Verifica se o email é válido
                 user.email = textUser;
                 user.step_flow = 'validate_unique_key';
-                models.push(whatsappModel.MessageText("Qual é o seu CPF ou CNPJ?", phoneClient));
+                models.push(whatsappModel.MessageText("Perfeito! Agora, por favor, informe seu CPF ou CNPJ. _(Aguardo 5 minutos pela sua resposta)_", phoneClient));
             } else {  // Caso email inválido, pede novamente
-                models.push(whatsappModel.MessageText("Parece que o email fornecido não é válido. Por favor, informe um email válido.", phoneClient));
+                models.push(whatsappModel.MessageText("Opa, parece que o e-mail fornecido não é válido. Vamos tentar de novo? Por favor, informe um e-mail válido.", phoneClient));
             }
             break;            
 
@@ -96,7 +96,7 @@ async function flowSignUp(user,textUser) {
                 var button = whatsappModel.Button(responseToclient, phoneClient, decision_tree);
                 models.push(button);
             } else {
-                models.push(whatsappModel.MessageText("O CPF ou CNPJ fornecido não é válido. Por favor, informe um válido.", phoneClient));
+                models.push(whatsappModel.MessageText("Opa, parece que o CPF ou CNPJ fornecido não é válido. Pode verificar e tentar novamente, por favor?", phoneClient));
             }
             break;
         
