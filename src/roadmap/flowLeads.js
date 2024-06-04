@@ -3,6 +3,7 @@ const whatsappModel = require("../shared/whatsappmodels");
 const generateFixedQrCode = require("../controllers/generateFixedQrCode");
 const updateClient = require("../util/api/updateClient");
 const deleteLeads = require("../util/api/deleteLeads");
+const importLeads = require('../util/api/importLeadsByBookList');
 
 async function flowDefault(user,textUser) {
     // Se não existir, manda mensagem de despedida
@@ -43,7 +44,12 @@ async function flowDefault(user,textUser) {
         case 'delete_leads':
             await deleteLeads(session);
             models.push(whatsappModel.MessageText("Sua lista de contatos foi limpa!", phone));
-            break;                 
+            break;    
+        
+        case 'import_leads':
+            await importLeads(session);
+            models.push(whatsappModel.MessageText("Sua lista de contatos foi importada como Leads!!!", phone));
+            break;                
 
         case 'retur_default':
             user.step_flow = "default_step";

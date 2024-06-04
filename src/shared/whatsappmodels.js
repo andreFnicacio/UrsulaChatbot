@@ -68,7 +68,12 @@ function OperationLeads(number){
                                 "id": "get_docfile",
                                 "title": "Planilha 📑",
                                 "description": "Enviar modelo (excel/csv) de clientes."
-                            }
+                            },
+                            {
+                                "id": "import_leads",
+                                "title": "Importar Contatos 📑",
+                                "description": "Importar contatos como possiveis leads."
+                            }                            
                         ]
                     },
                     {
