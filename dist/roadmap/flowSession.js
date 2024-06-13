@@ -54,7 +54,7 @@ function _flowSession() {
           _context.next = _context.t0 === 'generate_qrcode' ? 22 : _context.t0 === 'close_conect' ? 37 : 42;
           break;
         case 22:
-          textSubmit = whatsappModel.MessageText("Aguarde um momento, gerando *QRCODE* \uD83D\uDD96", phone);
+          textSubmit = whatsappModel.MessageText("S\xF3 um momento, estou gerando o seu *QR Code* \uD83D\uDD96", phone);
           whatsappService.SendMessageWhatsApp(textSubmit);
           _context.next = 26;
           return generateToken(session);
@@ -66,19 +66,19 @@ function _flowSession() {
         case 30:
           qrcode = _context.sent;
           models.push(whatsappModel.QrCode(phone, qrcode));
-          responseToclient = "Lembre de fazer a leitura utilizando seu *aplicativo oficial* do Whatsapp ✅\n\nPrecisa gerar um novo QrCode ? 😊";
+          responseToclient = "Lembre-se de fazer a leitura utilizando o seu aplicativo oficial do WhatsApp ✅\n\nSolicitamos esse QR Code para garantir a sua segurança e autenticidade ao acessar nossos serviços, facilitando a sua experiência.\n\nPrecisa gerar um novo QrCode ? 😊";
           decisions = ["repeat_qrcode", "await_session"];
           button = whatsappModel.Button(responseToclient, phone, decisions);
           models.push(button);
           return _context.abrupt("break", 47);
         case 37:
-          textClient = "Ol\xE1 ".concat(user.name, ", tudo bem ?! Verifiquei no sistema e sua sess\xE3o foi desconectada!!\nGostaria de iniciar a sess\xE3o novamente ? \uD83D\uDE01");
+          textClient = "Opa ".concat(user.name, ", tudo bem ?! tudo bem? Percebi que sua sess\xE3o terminou.!!\nGostaria de iniciar a sess\xE3o novamente ? \uD83D\uDE01");
           close_tree_way = ["repeat_qrcode", "await_session"];
           button = whatsappModel.Button(textClient, phone, close_tree_way);
           models.push(button);
           return _context.abrupt("break", 47);
         case 42:
-          textClient = "Ol\xE1 ".concat(user.name, ", tudo bem ?! Verifiquei no sistema e sua sess\xE3o n\xE3o est\xE1 iniciada!!\nGostaria de iniciar a sess\xE3o agora ? \uD83D\uDE01");
+          textClient = "Opa ".concat(user.name, ", tudo certo ?! tudo bem? Percebi que sua sess\xE3o n\xE3o foi iniciada!!\nGostaria de iniciar a sess\xE3o agora ? \uD83D\uDE01");
           decision_tree_way = ["repeat_qrcode", "await_session"];
           button = whatsappModel.Button(textClient, phone, decision_tree_way);
           models.push(button);

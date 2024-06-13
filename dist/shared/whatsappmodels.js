@@ -63,6 +63,10 @@ function OperationLeads(number) {
             "id": "get_docfile",
             "title": "Planilha 📑",
             "description": "Enviar modelo (excel/csv) de clientes."
+          }, {
+            "id": "import_leads",
+            "title": "Importar Contatos 📑",
+            "description": "Importar contatos como possiveis leads."
           }]
         }, {
           "title": "Gerencia ⚙️",
@@ -153,6 +157,34 @@ function Button(text, number, decision_ids) {
   });
   return data;
 }
+function GetOutDoorData(number) {
+  var data = JSON.stringify({
+    "messaging_product": "whatsapp",
+    "recipient_type": "individual",
+    "to": number,
+    "type": "interactive",
+    "interactive": {
+      "type": "cta_url",
+      "header": {
+        "text": "Plataforma Unilead"
+      },
+      "body": {
+        "text": "Click no botão para acessar nossa plataforma."
+      },
+      "footer": {
+        "text": "Unilead"
+      },
+      "action": {
+        "name": "cta_url",
+        "parameters": {
+          "display_text": "Plataforma",
+          "url": "https://www.unilead.com.br/"
+        }
+      }
+    }
+  });
+  return data;
+}
 function MessageLocation(number) {
   var data = JSON.stringify({
     "messaging_product": "whatsapp",
@@ -174,5 +206,6 @@ module.exports = {
   Button: Button,
   QrCode: QrCode,
   MessageLocation: MessageLocation,
-  modelDoc: modelDoc
+  modelDoc: modelDoc,
+  GetOutDoorData: GetOutDoorData
 };

@@ -9,6 +9,7 @@ var whatsappModel = require("../shared/whatsappmodels");
 var generateFixedQrCode = require("../controllers/generateFixedQrCode");
 var updateClient = require("../util/api/updateClient");
 var deleteLeads = require("../util/api/deleteLeads");
+var importLeads = require('../util/api/importLeadsByBookList');
 function flowDefault(_x, _x2) {
   return _flowDefault.apply(this, arguments);
 }
@@ -49,7 +50,7 @@ function _flowDefault() {
           return _context.abrupt("return", models);
         case 19:
           _context.t0 = step;
-          _context.next = _context.t0 === 'get_qrcodefixed' ? 22 : _context.t0 === 'get_docfile' ? 28 : _context.t0 === 'delete_leads' ? 31 : _context.t0 === 'retur_default' ? 35 : 45;
+          _context.next = _context.t0 === 'get_qrcodefixed' ? 22 : _context.t0 === 'get_docfile' ? 28 : _context.t0 === 'delete_leads' ? 31 : _context.t0 === 'import_leads' ? 35 : _context.t0 === 'retur_default' ? 39 : 49;
           break;
         case 22:
           _context.next = 24;
@@ -58,41 +59,47 @@ function _flowDefault() {
           qrcode = _context.sent;
           models.push(whatsappModel.QrCode(phone, qrcode));
           models.push(whatsappModel.MessageText("Prontinho!! Agora é so pedir para seus contatos escanearem e nós cuidamos do resto!! :)", phone));
-          return _context.abrupt("break", 49);
+          return _context.abrupt("break", 53);
         case 28:
           models.push(whatsappModel.modelDoc(phone));
           models.push(whatsappModel.MessageText("Estamos encaminhando uma planilha modelo! *Favor seguir a modelagem fornecida e nos encaminhar!", phone));
-          return _context.abrupt("break", 49);
+          return _context.abrupt("break", 53);
         case 31:
           _context.next = 33;
           return deleteLeads(session);
         case 33:
           models.push(whatsappModel.MessageText("Sua lista de contatos foi limpa!", phone));
-          return _context.abrupt("break", 49);
+          return _context.abrupt("break", 53);
         case 35:
+          _context.next = 37;
+          return importLeads(session);
+        case 37:
+          models.push(whatsappModel.MessageText("Sua lista de contatos foi importada como Leads!!!", phone));
+          return _context.abrupt("break", 53);
+        case 39:
           user.step_flow = "default_step";
           user.flow_roadmap = "default_flow";
           _updateData = {
             "id_phone": phone,
             "updateData": user
           };
-          _context.next = 40;
+          _context.next = 44;
           return updateClient(_updateData);
-        case 40:
-          _context.next = 42;
+        case 44:
+          _context.next = 46;
           return redis.setUserState(session, user);
-        case 42:
+        case 46:
           operationList = whatsappModel.OperationDefault(session, phone);
           models.push(operationList);
-          return _context.abrupt("break", 49);
-        case 45:
+          return _context.abrupt("break", 53);
+        case 49:
           models.push(whatsappModel.MessageText("Bem-vindo novamente!! Escolha uma ação :D", phone));
           operationList = whatsappModel.OperationLeads(phone);
           models.push(operationList);
-          return _context.abrupt("break", 49);
-        case 49:
+          return _context.abrupt("break", 53);
+        case 53:
           return _context.abrupt("return", models);
-        case 50:
+        case 54:
         case "end":
           return _context.stop();
       }

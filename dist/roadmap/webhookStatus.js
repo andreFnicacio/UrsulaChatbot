@@ -8,7 +8,6 @@ var whatsappModel = require("../shared/whatsappmodels");
 var whatsappService = require("../services/whatsappService");
 var updateClient = require("../util/api/updateClient");
 var clearDataSession = require("../util/api/clearDataSession");
-var inputLeads = require("../util/api/inputLeads");
 var redis = require("../util/redis/redis_config");
 function status(_x, _x2) {
   return _status.apply(this, arguments);
@@ -40,55 +39,57 @@ function _status() {
           decision_tree_way = ["generate_qrcode", "await_session"];
           button = whatsappModel.Button(textClient, phone, decision_tree_way);
           whatsappService.SendMessageWhatsApp(button);
-          _context.next = 41;
+          _context.next = 43;
           break;
         case 16:
-          if (!(status === "inChat" && !type)) {
-            _context.next = 28;
+          if (!(status === "inChat" && !type && !user.session_status)) {
+            _context.next = 29;
             break;
           }
           user.step_flow = "default_step";
           user.flow_roadmap = "default_flow";
+          user.session_status = true;
 
           //await inputLeads(session,token);        
           updateData = {
             "id_phone": phone,
             "updateData": user
           };
-          _context.next = 22;
+          _context.next = 23;
           return updateClient(updateData);
-        case 22:
-          _context.next = 24;
+        case 23:
+          _context.next = 25;
           return redis.setUserState(session, user);
-        case 24:
+        case 25:
           operationList = whatsappModel.OperationDefault(phone);
           whatsappService.SendMessageWhatsApp(operationList);
-          _context.next = 41;
+          _context.next = 43;
           break;
-        case 28:
+        case 29:
           if (!(status === "browserClose" && !type)) {
-            _context.next = 41;
+            _context.next = 43;
             break;
           }
-          _context.next = 31;
+          _context.next = 32;
           return clearDataSession(session, token);
-        case 31:
+        case 32:
           user.flow_roadmap = "session_flow";
           user.step_flow = "await_conect";
+          user.session_status = false;
           user.deadline = 86400;
           _updateData = {
             "id_phone": phone,
             "updateData": user
           };
-          _context.next = 37;
-          return updateClient(_updateData);
-        case 37:
           _context.next = 39;
-          return redis.setUserState(session, user);
+          return updateClient(_updateData);
         case 39:
+          _context.next = 41;
+          return redis.setUserState(session, user);
+        case 41:
           _textSubmit = whatsappModel.MessageText("Sua conta foi deconectada \uD83E\uDD7A. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem \uD83E\uDD70!!", phone);
           whatsappService.SendMessageWhatsApp(_textSubmit);
-        case 41:
+        case 43:
         case "end":
           return _context.stop();
       }

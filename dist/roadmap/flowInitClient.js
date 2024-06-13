@@ -29,6 +29,7 @@ function _flowInitClient() {
             unique_key: "unique_key",
             id_session: "session_".concat(number),
             id_phone: number,
+            session_status: false,
             flow_roadmap: "signup_flow",
             step_flow: "start"
           };
@@ -44,7 +45,7 @@ function _flowInitClient() {
           models.push(whatsappModel.MessageText("Sem problemas! Quando quiser é so me chamar!", number));
           return _context.abrupt("break", 20);
         case 15:
-          textClient = "Percebi que não tenho você na base de dados 😬\nGostaria de iniciar um *Cadastro Manual* ?";
+          textClient = "Oi! Percebi que ainda não tenho você na minha base de dados 😬.\nPrecisamos do seu cadastro para personalizar sua experiência, garantir sua segurança e facilitar o acesso a todos os nossos serviços, ajudando você de forma mais rápida e eficiente. 😊\nGostaria de iniciar um *Cadastro Manual* ?";
           decision_tree_way = ["confirm_follow", "await_init"];
           button = whatsappModel.Button(textClient, number, decision_tree_way);
           models.push(button);
