@@ -184,6 +184,35 @@ function Button(text,number,decision_ids){
     return data;
 }
 
+function GetOutDoorData(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "cta_url",
+            "header": {
+                "text": "Plataforma Unilead"
+            },
+            "body": {
+                "text": "Click no botão para acessar nossa plataforma."
+            },
+            "footer": {
+                "text": "Unilead"
+            },
+            "action": {
+                "name": "cta_url",
+                "parameters": {
+                    "display_text": "Plataforma",
+                    "url": "https://www.unilead.com.br/"
+                }
+            }
+        }
+    });
+    return data;
+}
+
 function MessageLocation(number){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
@@ -207,5 +236,6 @@ OperationLeads,
 Button,
 QrCode,
 MessageLocation,
-modelDoc
+modelDoc,
+GetOutDoorData
 };
