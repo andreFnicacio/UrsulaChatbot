@@ -9,4 +9,6 @@ app.use(express.json());
 
 app.use("/whatsapp", apiRoute);
 
-app.listen(PORT, () => {console.log("el puerto es: " + PORT)});
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on port ${port}`);
+  });
