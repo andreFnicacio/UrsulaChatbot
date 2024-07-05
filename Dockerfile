@@ -1,5 +1,5 @@
 # Use a imagem base do Node.js
-FROM node:14
+FROM node:21
 
 # Define o diretório de trabalho
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Comando para rodar a aplicação
-CMD [ "sh", "-c", "echo $PORT && npm run start" ]
+CMD [ "sh", "-c", "echo $PORT && ls && npm run start" ]
