@@ -16,8 +16,7 @@ async function flowDefault(user, textUser) {
     }    
 
     switch (step) {
-        case 'send_campaign':
-            console.log("Enviar disparo de campanha: ", returnCampaign);
+        case 'document':
             models.push(whatsappModel.MessageText(`
                 📄 Detalhes do Contrato 📄:
 
@@ -28,7 +27,9 @@ async function flowDefault(user, textUser) {
                 📅 Validade Inicial: 01/03/2022
                 ⏳ Duração: Pelo prazo determinado de 12 (doze) meses                
                 `, phone));                                      
-            break;          
+            break;    
+	case 'send_campaign':
+	    models.push(whatsappModel.MessageText('Perfeito! Pode encaminhar o contrato :D'));      
         case 'backoffice_account':     
             models.push(whatsappModel.GetOutDoorData(phone));                                      
             break;              
