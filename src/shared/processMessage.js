@@ -20,7 +20,7 @@ async function Process(textUser, number){
         id_phone: number,
         session_status:  true,
         flow_roadmap: "default",
-        step_flow: "default" 
+        step_flow: textUser 
     };
 
     let models;
