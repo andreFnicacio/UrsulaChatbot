@@ -3,7 +3,7 @@
 var express = require("express");
 var apiRoute = require("./routes/routes");
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = 8080;
 app.use(express.json());
 app.use("/whatsapp", apiRoute);
 app.listen(PORT, function () {
