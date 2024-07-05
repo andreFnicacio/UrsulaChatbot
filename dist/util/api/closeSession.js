@@ -22,7 +22,7 @@ function _closeSession() {
             }
           }; // Se espera enviar dados na requisição, você deve incluir um objeto vazio ou os dados reais como segundo parâmetro antes de `config`.
           _context.next = 4;
-          return axios.post("https://api-wpp-production.up.railway.app/api/".concat(session, "/logout-session"), {}, config);
+          return axios.post("https://api-wpp-production-d36f.up.railway.app/api/".concat(session, "/logout-session"), {}, config);
         case 4:
           response = _context.sent;
           console.log("Close Data:", response.data);

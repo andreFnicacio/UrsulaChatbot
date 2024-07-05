@@ -23,7 +23,7 @@ function _deleteSession() {
             timeout: 50000 // timeout de 5 segundos
           };
           _context.next = 4;
-          return axios.get("https://api-wpp-production.up.railway.app/client/".concat(session, "/close"), config);
+          return axios.get("https://api-wpp-production-d36f.up.railway.app/client/".concat(session, "/close"), config);
         case 4:
           response = _context.sent;
           return _context.abrupt("return", response);

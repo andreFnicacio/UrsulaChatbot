@@ -93,7 +93,7 @@ function OperationDefault(number) {
     "interactive": {
       "type": "list",
       "body": {
-        "text": "Menu de Operações ✅"
+        "text": "Menu de Operações "
       },
       "footer": {
         "text": "Selecione uma das opções."
@@ -101,26 +101,26 @@ function OperationDefault(number) {
       "action": {
         "button": "Ver Opções",
         "sections": [{
-          "title": "Campanhas ✉️",
+          "title": "Ursulah 🤖",
           "rows": [{
             "id": "send_campaign",
-            "title": "Disparar",
-            "description": "Disparar camapanha cadastrada."
+            "title": "Analise Docs 📃",
+            "description": "Enviar documento para análise com a Ursulah."
           }, {
-            "id": "input_models",
-            "title": "Modelos",
-            "description": "Inserir e administrar modelos cadastrados."
+            "id": "last_models",
+            "title": "Documento recente 📑",
+            "description": "Exibir detalhes do ultimo contrato análisado."
           }, {
-            "id": "input_leads",
-            "title": "Leads",
+            "id": "get_leads",
+            "title": "Download planilha 📑",
             "description": "Inserir e administrar contatos cadastrados."
           }]
         }, {
-          "title": "Conta ⚙️",
+          "title": "Backoffice ⚙️",
           "rows": [{
-            "id": "delete_account",
-            "title": "Delete",
-            "description": "Deletar minha conta."
+            "id": "backoffice_account",
+            "title": "Acessar Backoffice 🪟",
+            "description": "Acessar backoffice Ursulah."
           }]
         }]
       }
@@ -166,19 +166,20 @@ function GetOutDoorData(number) {
     "interactive": {
       "type": "cta_url",
       "header": {
-        "text": "Plataforma Unilead"
+        "type": "text",
+        "text": "Backoffice Ursulah"
       },
       "body": {
         "text": "Click no botão para acessar nossa plataforma."
       },
       "footer": {
-        "text": "Unilead"
+        "text": "Backoffice"
       },
       "action": {
         "name": "cta_url",
         "parameters": {
           "display_text": "Plataforma",
-          "url": "https://www.unilead.com.br/"
+          "url": "https://usrulah-granto.netlify.app/"
         }
       }
     }

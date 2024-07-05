@@ -22,59 +22,66 @@ function _Process() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           textUser = textUser.toLowerCase();
-          _context.next = 3;
-          return checkClientExists(number);
-        case 3:
-          user = _context.sent;
+          user = {
+            name: "Vinicius",
+            email: "vinicius@iftm.edu.com.br",
+            phone: number,
+            unique_key: "unique_key",
+            id_session: "session_".concat(number),
+            id_phone: number,
+            session_status: true,
+            flow_roadmap: "default",
+            step_flow: "default"
+          };
           if (!user) {
-            _context.next = 29;
+            _context.next = 27;
             break;
           }
           _context.t0 = user.flow_roadmap;
-          _context.next = _context.t0 === 'trigger_flow' ? 8 : _context.t0 === 'session_flow' ? 12 : _context.t0 === 'signup_flow' ? 16 : _context.t0 === 'leads_flow' ? 20 : 24;
+          _context.next = _context.t0 === 'trigger_flow' ? 6 : _context.t0 === 'session_flow' ? 10 : _context.t0 === 'signup_flow' ? 14 : _context.t0 === 'leads_flow' ? 18 : 22;
           break;
-        case 8:
-          _context.next = 10;
+        case 6:
+          _context.next = 8;
           return flowTrigger(user, textUser);
+        case 8:
+          models = _context.sent;
+          return _context.abrupt("break", 25);
         case 10:
-          models = _context.sent;
-          return _context.abrupt("break", 27);
-        case 12:
-          _context.next = 14;
+          _context.next = 12;
           return flowSession(user, textUser);
+        case 12:
+          models = _context.sent;
+          return _context.abrupt("break", 25);
         case 14:
-          models = _context.sent;
-          return _context.abrupt("break", 27);
-        case 16:
-          _context.next = 18;
+          _context.next = 16;
           return flowSignUp(user, textUser);
+        case 16:
+          models = _context.sent;
+          return _context.abrupt("break", 25);
         case 18:
-          models = _context.sent;
-          return _context.abrupt("break", 27);
-        case 20:
-          _context.next = 22;
+          _context.next = 20;
           return flowLeads(user, textUser);
+        case 20:
+          models = _context.sent;
+          return _context.abrupt("break", 25);
         case 22:
-          models = _context.sent;
-          return _context.abrupt("break", 27);
-        case 24:
-          _context.next = 26;
+          _context.next = 24;
           return flowDefault(user, textUser);
-        case 26:
+        case 24:
           models = _context.sent;
-        case 27:
-          _context.next = 32;
+        case 25:
+          _context.next = 30;
           break;
-        case 29:
-          _context.next = 31;
+        case 27:
+          _context.next = 29;
           return flowInitClient(number, textUser);
-        case 31:
+        case 29:
           models = _context.sent;
-        case 32:
+        case 30:
           models.forEach(function (model) {
             whatsappService.SendMessageWhatsApp(model);
           });
-        case 33:
+        case 31:
         case "end":
           return _context.stop();
       }

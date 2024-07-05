@@ -15,7 +15,7 @@ function _inputClient() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          url = 'https://api-wpp-production.up.railway.app/client/input';
+          url = 'https://api-wpp-production-d36f.up.railway.app/client/input';
           postData = {
             name: clientData.name,
             email: clientData.email,

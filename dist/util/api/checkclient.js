@@ -14,73 +14,32 @@ function checkClientExists(_x) {
 }
 function _checkClientExists() {
   _checkClientExists = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(numberId) {
-    var sessionKey, client, response, check;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           console.log("Iniciando Checagem");
           _context.prev = 1;
-          sessionKey = "session_".concat(numberId);
-          _context.next = 5;
-          return redis.getUserState(sessionKey);
+          return _context.abrupt("return", {
+            name: "Vinicius",
+            email: "vinicius@iftm.edu.com.br",
+            phone: numberId,
+            unique_key: "unique_key",
+            id_session: "session_".concat(numberId),
+            id_phone: numberId,
+            session_status: false,
+            flow_roadmap: "default",
+            step_flow: "default"
+          });
         case 5:
-          client = _context.sent;
-          if (client) {
-            _context.next = 17;
-            break;
-          }
-          console.log("Client Redis not found");
-          _context.next = 10;
-          return axios.get("https://api-wpp-production-d36f.up.railway.app/client/check?numberid=".concat(numberId));
-        case 10:
-          response = _context.sent;
-          if (!response.data.exists) {
-            _context.next = 16;
-            break;
-          }
-          client = response.data.exists;
-          client.deadline = 86400;
-          _context.next = 17;
-          break;
-        case 16:
-          return _context.abrupt("return", false);
-        case 17:
-          if (client.token) {
-            _context.next = 22;
-            break;
-          }
-          console.log("Sessao nao foi criada");
-          return _context.abrupt("return", client);
-        case 22:
-          _context.next = 24;
-          return isSessionActive(client);
-        case 24:
-          check = _context.sent;
-          if (!check) {
-            _context.next = 30;
-            break;
-          }
-          client.deadline = 86400;
-          return _context.abrupt("return", client);
-        case 30:
-          _context.next = 32;
-          return handleInactiveSession(client, sessionKey);
-        case 32:
-          new_client = _context.sent;
-          return _context.abrupt("return", new_client);
-        case 34:
-          _context.next = 40;
-          break;
-        case 36:
-          _context.prev = 36;
+          _context.prev = 5;
           _context.t0 = _context["catch"](1);
           console.error('Erro ao verificar cliente: ', _context.t0);
           return _context.abrupt("return", false);
-        case 40:
+        case 9:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 36]]);
+    }, _callee, null, [[1, 5]]);
   }));
   return _checkClientExists.apply(this, arguments);
 }
