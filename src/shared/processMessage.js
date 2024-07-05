@@ -11,7 +11,18 @@ const flowLeads = require("../roadmap/flowLeads");
 async function Process(textUser, number){
     textUser = textUser.toLowerCase();
 
-    const user = await checkClientExists(number);
+    const user = {
+        name: "Vinicius",
+        email: "vinicius@iftm.edu.com.br",
+        phone: number,
+        unique_key: "unique_key",
+        id_session: `session_${number}`,
+        id_phone: number,
+        session_status:  true,
+        flow_roadmap: "default",
+        step_flow: "default" 
+    };
+
     let models;
 
     if (user) {
