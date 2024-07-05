@@ -40,7 +40,7 @@ async function checkClientExists(numberId) {
         phone: numberId,
         unique_key: "unique_key",
         id_session: `session_${numberId}`,
-        id_phone: number,
+        id_phone: numberId,
         session_status: false,
         flow_roadmap: "signup_flow",
         step_flow: "start" 
