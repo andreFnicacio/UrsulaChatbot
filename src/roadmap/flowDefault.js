@@ -33,36 +33,43 @@ async function flowDefault(user, textUser) {
         case 'send_campaign':
             const returnCampaign = await sendTrigger(session, token);
             console.log("Enviar disparo de campanha: ", returnCampaign);
-            models.push(whatsappModel.MessageText(`Perfeito ${name}! Disparo efetuado com sucesso para a lista de contatos. 😊`, phone));                                      
+            models.push(whatsappModel.MessageText(`
+                📄 Detalhes do Contrato 📄:
+
+                🤝 Contratante: Sofie Tecnologia Ltda
+                🆔 CNPJ do Contratante: 29.676.543/0001-05
+                📋 Contratada: Quilombus Network
+                💰 Valor Contratado: R$ 3.500,00
+                📅 Validade Inicial: 01/03/2022
+                ⏳ Duração: Pelo prazo determinado de 12 (doze) meses                
+                `, phone));                                      
             break;          
-        case 'input_models':     
+        case 'backoffice_account':     
             models.push(whatsappModel.GetOutDoorData(phone));                                      
             break;              
         case 'input_leads':
-            user.step_flow = 'default';
-            user.flow_roadmap = 'leads_flow';                   
-            var operationList = whatsappModel.OperationLeads(phone); 
-            models.push(operationList);
+            models.push(whatsappModel.modelDoc(phone));    
+            models.push(whatsappModel.MessageText("Estamos encaminhando a planilha atualizada!", phone));
             break;                
         case 'await_session':
             models.push(whatsappModel.MessageText(`Ok ${user.name}! Me chame novamento quando quiser!! 😊`, phone));             
             break;    
-        case 'delete_account':     
-
-            await deleteClient(phone);
-            await redis.deleteUserState(session);            
-        
-            const close = await closeSession(session, token); 
-            console.log("Close Session", close);
-            
-            models.push(whatsappModel.MessageText(`Sua conta foi excluida 🥺. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem 🥰!!`, phone));             
-            break;    
+        //case 'delete_account':     
+//
+        //    await deleteClient(phone);
+        //    await redis.deleteUserState(session);            
+        //
+        //    const close = await closeSession(session, token); 
+        //    console.log("Close Session", close);
+        //    
+        //    models.push(whatsappModel.MessageText(`Sua conta foi excluida 🥺. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem 🥰!!`, phone));             
+        //    break;    
         case 'default_operation':
             var operationList = whatsappModel.OperationDefault(phone); 
             models.push(operationList);
             break;                
         default:
-            var textClient = `Olá ${user.name}, Bem vindo novamente!! Gostaria de entrar no *menu* da sua sessão?`;
+            var textClient = `Olá Vinicius, Bem vindo novamente!! Gostaria de entrar no *menu* da sua sessão?`;
             const decision_tree_way = ["default_operation", "await_session"];
             var button = whatsappModel.Button(textClient, phone, decision_tree_way);            
             models.push(button);    
