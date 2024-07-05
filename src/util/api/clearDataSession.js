@@ -9,7 +9,7 @@ async function clearDataSession(session, token) {
             }
         };
         // Se espera enviar dados na requisição, você deve incluir um objeto vazio ou os dados reais como segundo parâmetro antes de `config`.
-        const response = await axios.post(`https://api-wpp-production.up.railway.app/api/${session}/THISISMYSECURETOKEN/clear-session-data`, {}, config);
+        const response = await axios.post(`https://api-wpp-production-d36f.up.railway.app/api/${session}/THISISMYSECURETOKEN/clear-session-data`, {}, config);
         console.log("Close Data:",response.data);        
         return response;
     } catch (error) {

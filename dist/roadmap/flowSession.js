@@ -114,7 +114,7 @@ function _generateToken() {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
-          return axios.post("https://api-wpp-production.up.railway.app/api/".concat(session, "/THISISMYSECURETOKEN/generate-token"));
+          return axios.post("https://api-wpp-production-d36f.up.railway.app/api/".concat(session, "/THISISMYSECURETOKEN/generate-token"));
         case 3:
           response = _context2.sent;
           return _context2.abrupt("return", response.data.token);

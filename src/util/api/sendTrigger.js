@@ -10,7 +10,7 @@ async function sendTrigger(session,token) {
             },
             timeout: 50000 // timeout de 5 segundos
         };        
-        const response = await axios.get(`https://api-wpp-production.up.railway.app/api/${session}/trigger/leads`,config);
+        const response = await axios.get(`https://api-wpp-production-d36f.up.railway.app/api/${session}/trigger/leads`,config);
         return response.data;
     } catch (error) {
         console.error('Erro ao verificar cliente: ', error);

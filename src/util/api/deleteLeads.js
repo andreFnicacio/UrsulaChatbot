@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 async function deleteClient(session) {
-    const url = `https://api-wpp-production.up.railway.app/api/${session}/deleteleads`; // URL atualizada para rota de update
+    const url = `https://api-wpp-production-d36f.up.railway.app/api/${session}/deleteleads`; // URL atualizada para rota de update
     const postData = {
         sessionId: session
     };

@@ -1,7 +1,7 @@
 const axios = require('axios');
 async function startSession(session,token) {
     console.log("Iniciando seção");
-    const url = `https://api-wpp-production.up.railway.app/api/${session}/start-session`;
+    const url = `https://api-wpp-production-d36f.up.railway.app/api/${session}/start-session`;
     const postData = {
         webhook: "https://4e18-2804-1e68-c803-737-a827-64e0-a37c-2f88.ngrok-free.app/whatsapp/status",
         waitQrCode:true

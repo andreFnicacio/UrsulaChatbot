@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 async function deleteClient(numberId) {
-    const url = 'https://api-wpp-production.up.railway.app/client/delete'; // URL atualizada para rota de update
+    const url = 'https://api-wpp-production-d36f.up.railway.app/client/delete'; // URL atualizada para rota de update
     const postData = {
         numberId: numberId
     };
