@@ -6,9 +6,9 @@
   "scripts": {
     "bot": "node ./src/index.js",
     "dev": "nodemon ./src/index.js",
-    "start": "node index.js",
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel . --out-dir app --ignore '**/node_modules/**'"
+    "build": "babel src --out-dir dist --ignore '**/node_modules/**'"
   },
   "keywords": [],
   "author": "",
