@@ -42,8 +42,8 @@ async function checkClientExists(numberId) {
         id_session: `session_${numberId}`,
         id_phone: numberId,
         session_status: false,
-        flow_roadmap: "signup_flow",
-        step_flow: "start" 
+        flow_roadmap: "default",
+        step_flow: "default" 
     }
     } catch (error) {
         console.error('Erro ao verificar cliente: ', error);
