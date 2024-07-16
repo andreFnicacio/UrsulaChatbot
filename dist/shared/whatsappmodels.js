@@ -166,6 +166,7 @@ function GetOutDoorData(number) {
     "interactive": {
       "type": "cta_url",
       "header": {
+        "type": "text",
         "text": "Plataforma Unilead"
       },
       "body": {
