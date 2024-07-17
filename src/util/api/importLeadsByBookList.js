@@ -10,7 +10,7 @@ async function importLeads(session,token) {
             },
             timeout: 50000 // timeout de 5 segundos
         };        
-        const response = await axios.get(`https://api-wpp-production.up.railway.app/api/${session}/all-contacts`,config);
+        const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/api/${session}/all-contacts`,config);
         return response;
     } catch (error) {
         console.error('Erro ao verificar cliente: ', error);

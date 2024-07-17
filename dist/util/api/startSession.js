@@ -15,7 +15,7 @@ function _startSession() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           console.log("Iniciando seção");
-          url = "https://api-wpp-production.up.railway.app/api/".concat(session, "/start-session");
+          url = "https://grantosegurosapimanagement-production.up.railway.app/api/".concat(session, "/start-session");
           postData = {
             webhook: "https://4e18-2804-1e68-c803-737-a827-64e0-a37c-2f88.ngrok-free.app/whatsapp/status",
             waitQrCode: true

@@ -74,7 +74,7 @@ async function flowSession(user,textUser) {
 
 async function generateToken(session) {
     try {
-        const response = await axios.post(`https://api-wpp-production.up.railway.app/api/${session}/THISISMYSECURETOKEN/generate-token`);
+        const response = await axios.post(`https://grantosegurosapimanagement-production.up.railway.app/api/${session}/THISISMYSECURETOKEN/generate-token`);
 
         return response.data.token;
     } catch (error) {

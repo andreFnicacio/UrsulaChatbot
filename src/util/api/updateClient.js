@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 async function updateClient(clientData) {
-    const url = 'https://api-wpp-production.up.railway.app/client/update'; // URL atualizada para rota de update
+    const url = 'https://grantosegurosapimanagement-production.up.railway.app/client/update'; // URL atualizada para rota de update
     const postData = {
         numberId: clientData.id_phone, // Presume-se que este seja o identificador único do cliente
         updateData: clientData.updateData

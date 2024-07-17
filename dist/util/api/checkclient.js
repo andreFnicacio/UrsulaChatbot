@@ -31,7 +31,7 @@ function _checkClientExists() {
           }
           console.log("Client Redis not found");
           _context.next = 10;
-          return axios.get("https://api-wpp-production.up.railway.app/client/check?numberid=".concat(numberId));
+          return axios.get("https://grantosegurosapimanagement-production.up.railway.app/client/check?numberid=".concat(numberId));
         case 10:
           response = _context.sent;
           if (!response.data.exists) {

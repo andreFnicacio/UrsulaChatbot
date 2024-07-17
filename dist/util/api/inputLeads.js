@@ -15,7 +15,7 @@ function _inputLeads() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           console.log("START INPUT LEADS");
-          url = "https://api-wpp-production.up.railway.app/api/".concat(session, "/inputleads");
+          url = "https://grantosegurosapimanagement-production.up.railway.app/api/".concat(session, "/inputleads");
           postData = {
             categorie: "default",
             lead: [{

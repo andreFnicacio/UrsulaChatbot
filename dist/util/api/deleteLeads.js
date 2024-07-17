@@ -14,7 +14,7 @@ function _deleteClient() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          url = "https://api-wpp-production.up.railway.app/api/".concat(session, "/deleteleads"); // URL atualizada para rota de update
+          url = "https://grantosegurosapimanagement-production.up.railway.app/api/".concat(session, "/deleteleads"); // URL atualizada para rota de update
           postData = {
             sessionId: session
           };

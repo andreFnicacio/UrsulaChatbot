@@ -23,7 +23,7 @@ function _checkConnectionSession() {
             timeout: 50000 // timeout de 5 segundos
           };
           _context.next = 4;
-          return axios.get("https://api-wpp-production.up.railway.app/api/".concat(session, "/check-connection-session"), config);
+          return axios.get("https://grantosegurosapimanagement-production.up.railway.app/api/".concat(session, "/check-connection-session"), config);
         case 4:
           response = _context.sent;
           return _context.abrupt("return", response.data.status);
