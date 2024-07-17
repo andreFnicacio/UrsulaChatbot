@@ -21,11 +21,11 @@ async function checkClientExists(numberId) {
             }
         }
 
-        if (!client.token) {
+        if (!client) {
             console.log("Sessao nao foi criada");            
             return client;            
         }else{
-            const check = await isSessionActive(client);
+            const check = true;
             if (check) {
                 client.deadline = 86400;                
                 return client;
