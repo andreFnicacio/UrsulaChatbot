@@ -45,42 +45,39 @@ function _checkClientExists() {
         case 16:
           return _context.abrupt("return", false);
         case 17:
-          if (client.token) {
+          if (client) {
             _context.next = 22;
             break;
           }
           console.log("Sessao nao foi criada");
           return _context.abrupt("return", client);
         case 22:
-          _context.next = 24;
-          return isSessionActive(client);
-        case 24:
-          check = _context.sent;
+          check = true;
           if (!check) {
-            _context.next = 30;
+            _context.next = 28;
             break;
           }
           client.deadline = 86400;
           return _context.abrupt("return", client);
-        case 30:
-          _context.next = 32;
+        case 28:
+          _context.next = 30;
           return handleInactiveSession(client, sessionKey);
-        case 32:
+        case 30:
           new_client = _context.sent;
           return _context.abrupt("return", new_client);
-        case 34:
-          _context.next = 40;
+        case 32:
+          _context.next = 38;
           break;
-        case 36:
-          _context.prev = 36;
+        case 34:
+          _context.prev = 34;
           _context.t0 = _context["catch"](1);
           console.error('Erro ao verificar cliente: ', _context.t0);
           return _context.abrupt("return", false);
-        case 40:
+        case 38:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 36]]);
+    }, _callee, null, [[1, 34]]);
   }));
   return _checkClientExists.apply(this, arguments);
 }
