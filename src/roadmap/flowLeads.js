@@ -29,12 +29,12 @@ async function flowDefault(user,textUser) {
     }    
 
     switch (step) {
-        case 'get_qrcodefixed':
-            const qrcode = await generateFixedQrCode(session,phone);
-            models.push(whatsappModel.QrCode(phone,qrcode));  
-
-            models.push(whatsappModel.MessageText("Prontinho!! Agora é so pedir para seus contatos escanearem e nós cuidamos do resto!! :)", phone));
-            break;  
+        //case 'get_qrcodefixed':
+        //    //const qrcode = await generateFixedQrCode(session,phone);
+        //    models.push(whatsappModel.QrCode(phone,qrcode));  
+//
+        //    models.push(whatsappModel.MessageText("Prontinho!! Agora é so pedir para seus contatos escanearem e nós cuidamos do resto!! :)", phone));
+        //    break;  
 
         case 'get_docfile':
             models.push(whatsappModel.modelDoc(phone));    
