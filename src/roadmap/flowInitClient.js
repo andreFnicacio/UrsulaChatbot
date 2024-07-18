@@ -7,7 +7,7 @@ async function flowInitClient(number,textUser) {
     textUser= textUser.toLowerCase();
     switch (textUser) {
         case 'confirm_follow':
-            var operationList = whatsappModel.OperationFAQ(phone); 
+            var operationList = whatsappModel.OperationFAQ(number); 
             models.push(operationList);
             break;    
         
@@ -21,7 +21,7 @@ async function flowInitClient(number,textUser) {
 
         case 'urs_access':
             models.push(whatsappModel.MessageText("Você pode acessar a Ursula pelo nosso portal online, disponível no site da Granto Seguros 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
-            models.push(whatsappModel.GetOutDoorData(phone));                                      
+            models.push(whatsappModel.GetOutDoorData(number));                                      
             break;               
             
         case 'grt_team':

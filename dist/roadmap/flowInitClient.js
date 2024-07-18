@@ -22,7 +22,7 @@ function _flowInitClient() {
           _context.next = _context.t0 === 'confirm_follow' ? 5 : _context.t0 === 'urs_who' ? 8 : _context.t0 === 'urs_work' ? 10 : _context.t0 === 'urs_access' ? 12 : _context.t0 === 'grt_team' ? 15 : _context.t0 === 'await_init' ? 17 : 19;
           break;
         case 5:
-          operationList = whatsappModel.OperationFAQ(phone);
+          operationList = whatsappModel.OperationFAQ(number);
           models.push(operationList);
           return _context.abrupt("break", 24);
         case 8:
@@ -33,7 +33,7 @@ function _flowInitClient() {
           return _context.abrupt("break", 24);
         case 12:
           models.push(whatsappModel.MessageText("Você pode acessar a Ursula pelo nosso portal online, disponível no site da Granto Seguros 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
-          models.push(whatsappModel.GetOutDoorData(phone));
+          models.push(whatsappModel.GetOutDoorData(number));
           return _context.abrupt("break", 24);
         case 15:
           models.push(whatsappModel.MessageText("\n                Equipe *GrantoUS*\n\n                Andr\xE9 Ferreira Nic\xE1cio: Graduando em An\xE1lise e Desenvolvimento de Sistemas pelo IFTM - Ituiutaba. T\xE9cnico em Inform\xE1tica pelo mesmo instituto. Experi\xEAncia em desenvolvimento de chatbot e an\xE1lise financeira na Sofi (2022-2023) e intelig\xEAncia artificial para estilometria. Atualmente, desenvolve IA para an\xE1lise preditiva de senten\xE7as judiciais.\n\n                Vitori Oliveira: Graduando em An\xE1lise e Desenvolvimento de Sistemas pelo IFTM - Ituiutaba e Bacharel em Agronomia pela UEMG. T\xE9cnico em Inform\xE1tica pelo IFTM. Foco em frontend com projetos de web scraping. Conhecimentos em HTML, CSS, JavaScript, Node.js, React.js, Next.js, Angular, Tailwind CSS e Styled-Components.\n\n                Vinicius: Graduando em An\xE1lise e Desenvolvimento de Sistemas pelo IFTM. Participante do PET, desenvolve monitorias e materiais did\xE1ticos. Pesquisador no projeto sobre a efic\xE1cia do ChatGPT na resolu\xE7\xE3o de quest\xF5es do ENADE. Conhecimentos em HTML, CSS, JavaScript e UX/UI Design.\n\n                Professor Rodrigo Grassi: Bacharel em Ci\xEAncia da Computa\xE7\xE3o (UFMS), Mestre (UNICAMP) e Doutor em Engenharia El\xE9trica (UFU). Professor no IFTM - Ituiutaba. Coordenou projetos inovadores como ScoutCoach e LACIA. Atualmente coordena um projeto de IA focado na preven\xE7\xE3o de doen\xE7as, fomentado pela unidade Embrappi do IFTM.                \n            ", number));
