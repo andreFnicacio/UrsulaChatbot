@@ -172,17 +172,17 @@ function OperationFAQ(number){
                             {
                                 "id": "urs_who",
                                 "title": "Ursula",
-                                "description": "Quem é nossa assistente digital e o que ela pode fazer ?"
-                            },
+                                "description": "Quem é nossa assistente digital ?"
+                            },                            
                             {
                                 "id": "urs_work",
                                 "title": "Funcionamento",
-                                "description": "A Ursula utiliza a Meta Cloud API, nossa API própria e uma conexão verificada da Meta para processar e analisar documentos. A lógica inclui verificação, processamento de dados e extração de informações."
+                                "description": "Como a Ursula trabalha ?"
                             },
                             {
                                 "id": "urs_access",
                                 "title": "Acessos",
-                                "description": "Por onde eu consigo acessar a Ursula ?"
+                                "description": "Eu consigo acessar a Ursula ?"
                             }
                         ]
                     },
