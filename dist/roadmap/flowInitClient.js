@@ -11,7 +11,7 @@ function flowInitClient(_x, _x2) {
 }
 function _flowInitClient() {
   _flowInitClient = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(number, textUser) {
-    var models, clientData, textClient, decision_tree, button, decision_tree_way;
+    var models, operationList, textClient, decision_tree_way, button;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -19,40 +19,37 @@ function _flowInitClient() {
           models = [];
           textUser = textUser.toLowerCase();
           _context.t0 = textUser;
-          _context.next = _context.t0 === 'confirm_follow' ? 5 : _context.t0 === 'await_init' ? 13 : 15;
+          _context.next = _context.t0 === 'confirm_follow' ? 5 : _context.t0 === 'urs_who' ? 8 : _context.t0 === 'urs_work' ? 10 : _context.t0 === 'urs_access' ? 12 : _context.t0 === 'grt_team' ? 15 : _context.t0 === 'await_init' ? 17 : 19;
           break;
         case 5:
-          clientData = {
-            name: "name",
-            email: "email",
-            phone: number,
-            unique_key: "unique_key",
-            id_session: "session_".concat(number),
-            id_phone: number,
-            session_status: false,
-            flow_roadmap: "signup_flow",
-            step_flow: "start"
-          };
-          _context.next = 8;
-          return inputClient(clientData);
+          operationList = whatsappModel.OperationFAQ(phone);
+          models.push(operationList);
+          return _context.abrupt("break", 24);
         case 8:
-          textClient = "Maravilha!! Vamos agora pegar algumas informações ok? 😄";
-          decision_tree = ["signup_follow", "await_step"];
-          button = whatsappModel.Button(textClient, number, decision_tree);
-          models.push(button);
-          return _context.abrupt("break", 20);
-        case 13:
-          models.push(whatsappModel.MessageText("Sem problemas! Quando quiser é so me chamar!", number));
-          return _context.abrupt("break", 20);
+          models.push(whatsappModel.MessageText("Ursula é nossa assistente digital super poderosa 🚀, treinada com mais de 100 mil contratos em diversos formatos. Ela analisa documentos, extrai informações importantes e te dá aquele suporte automatizado para facilitar a gestão dos seus contratos. 😉.", number));
+          return _context.abrupt("break", 24);
+        case 10:
+          models.push(whatsappModel.MessageText("A mágica por trás da Ursula usa a Meta Cloud API, nossa própria API e uma conexão verificada da Meta. Ela processa documentos legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
+          return _context.abrupt("break", 24);
+        case 12:
+          models.push(whatsappModel.MessageText("Você pode acessar a Ursula pelo nosso portal online, disponível no site da Granto Seguros 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
+          models.push(whatsappModel.GetOutDoorData(phone));
+          return _context.abrupt("break", 24);
         case 15:
-          textClient = "Oi! Percebi que ainda não tenho você na minha base de dados 😬.\nPrecisamos do seu cadastro para personalizar sua experiência, garantir sua segurança e facilitar o acesso a todos os nossos serviços, ajudando você de forma mais rápida e eficiente. 😊\nGostaria de iniciar um *Cadastro Manual* ?";
+          models.push(whatsappModel.MessageText("\n                Equipe *GrantoUS*\n\n                Andr\xE9 Ferreira Nic\xE1cio: Graduando em An\xE1lise e Desenvolvimento de Sistemas pelo IFTM - Ituiutaba. T\xE9cnico em Inform\xE1tica pelo mesmo instituto. Experi\xEAncia em desenvolvimento de chatbot e an\xE1lise financeira na Sofi (2022-2023) e intelig\xEAncia artificial para estilometria. Atualmente, desenvolve IA para an\xE1lise preditiva de senten\xE7as judiciais.\n\n                Vitori Oliveira: Graduando em An\xE1lise e Desenvolvimento de Sistemas pelo IFTM - Ituiutaba e Bacharel em Agronomia pela UEMG. T\xE9cnico em Inform\xE1tica pelo IFTM. Foco em frontend com projetos de web scraping. Conhecimentos em HTML, CSS, JavaScript, Node.js, React.js, Next.js, Angular, Tailwind CSS e Styled-Components.\n\n                Vinicius: Graduando em An\xE1lise e Desenvolvimento de Sistemas pelo IFTM. Participante do PET, desenvolve monitorias e materiais did\xE1ticos. Pesquisador no projeto sobre a efic\xE1cia do ChatGPT na resolu\xE7\xE3o de quest\xF5es do ENADE. Conhecimentos em HTML, CSS, JavaScript e UX/UI Design.\n\n                Professor Rodrigo Grassi: Bacharel em Ci\xEAncia da Computa\xE7\xE3o (UFMS), Mestre (UNICAMP) e Doutor em Engenharia El\xE9trica (UFU). Professor no IFTM - Ituiutaba. Coordenou projetos inovadores como ScoutCoach e LACIA. Atualmente coordena um projeto de IA focado na preven\xE7\xE3o de doen\xE7as, fomentado pela unidade Embrappi do IFTM.                \n            ", number));
+          return _context.abrupt("break", 24);
+        case 17:
+          models.push(whatsappModel.MessageText("Sem problemas! Quando quiser é so me chamar!", number));
+          return _context.abrupt("break", 24);
+        case 19:
+          textClient = "Oi! Tudo bem? 😃 Se tiver alguma dúvida sobre o sistema, estou aqui para ajudar! Quer tirar alguma dúvida agora?";
           decision_tree_way = ["confirm_follow", "await_init"];
           button = whatsappModel.Button(textClient, number, decision_tree_way);
           models.push(button);
-          return _context.abrupt("break", 20);
-        case 20:
+          return _context.abrupt("break", 24);
+        case 24:
           return _context.abrupt("return", models);
-        case 21:
+        case 25:
         case "end":
           return _context.stop();
       }
