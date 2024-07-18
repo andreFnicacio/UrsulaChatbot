@@ -14,7 +14,7 @@ function checkClientExists(_x) {
 }
 function _checkClientExists() {
   _checkClientExists = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(numberId) {
-    var sessionKey, client, response, check;
+    var sessionKey, client, response;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -34,50 +34,29 @@ function _checkClientExists() {
           return axios.get("https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId));
         case 10:
           response = _context.sent;
-          if (!response.data.exists) {
+          if (!response.phone) {
             _context.next = 16;
             break;
           }
-          client = response.data.exists;
+          client = response;
           client.deadline = 86400;
           _context.next = 17;
           break;
         case 16:
           return _context.abrupt("return", false);
         case 17:
-          if (client) {
-            _context.next = 22;
-            break;
-          }
-          console.log("Sessao nao foi criada");
+          console.log("Client:", client);
           return _context.abrupt("return", client);
-        case 22:
-          check = true;
-          if (!check) {
-            _context.next = 28;
-            break;
-          }
-          client.deadline = 86400;
-          return _context.abrupt("return", client);
-        case 28:
-          _context.next = 30;
-          return handleInactiveSession(client, sessionKey);
-        case 30:
-          new_client = _context.sent;
-          return _context.abrupt("return", new_client);
-        case 32:
-          _context.next = 38;
-          break;
-        case 34:
-          _context.prev = 34;
+        case 21:
+          _context.prev = 21;
           _context.t0 = _context["catch"](1);
           console.error('Erro ao verificar cliente: ', _context.t0);
           return _context.abrupt("return", false);
-        case 38:
+        case 25:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 34]]);
+    }, _callee, null, [[1, 21]]);
   }));
   return _checkClientExists.apply(this, arguments);
 }
