@@ -97,7 +97,6 @@ function OperationLeads(number){
     return data;
 }
 
-
 function OperationDefault(number){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
@@ -151,6 +150,59 @@ function OperationDefault(number){
     return data;
 }
 
+function OperationFAQ(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {
+                "text": "FAQ ❓"
+            },
+            "footer": {
+                "text": "Perguntas Frequentes"
+            },
+            "action": {
+                "button": "Ver Opções",
+                "sections": [
+                    {
+                        "title": "Ursula 🧸",
+                        "rows": [
+                            {
+                                "id": "urs_who",
+                                "title": "Ursula",
+                                "description": "Quem é nossa assistente digital e o que ela pode fazer ?"
+                            },
+                            {
+                                "id": "urs_work",
+                                "title": "Funcionamento",
+                                "description": "A Ursula utiliza a Meta Cloud API, nossa API própria e uma conexão verificada da Meta para processar e analisar documentos. A lógica inclui verificação, processamento de dados e extração de informações."
+                            },
+                            {
+                                "id": "urs_access",
+                                "title": "Acessos",
+                                "description": "Por onde eu consigo acessar a Ursula ?"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Granto US",
+                        "rows": [
+                            {
+                                "id": "grt_team",
+                                "title": "Time",
+                                "description": "Quem é o Time da GrantoUS ?"
+                            },                            
+                        ]
+                    }
+                ]
+            }
+        }
+    });
+    return data;
+}
+
 function Button(text,number,decision_ids){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
@@ -194,19 +246,19 @@ function GetOutDoorData(number){
             "type": "cta_url",
             "header": {
                 "type": "text",
-                "text": "Plataforma Unilead"
+                "text": "Plataforma GrantoUS"
             },
             "body": {
                 "text": "Click no botão para acessar nossa plataforma."
             },
             "footer": {
-                "text": "Unilead"
+                "text": "GrantoUS"
             },
             "action": {
                 "name": "cta_url",
                 "parameters": {
                     "display_text": "Plataforma",
-                    "url": "https://www.unilead.com.br/"
+                    "url": "https://www.grantous.com.br/"
                 }
             }
         }
@@ -238,5 +290,6 @@ Button,
 QrCode,
 MessageLocation,
 modelDoc,
+OperationFAQ,
 GetOutDoorData
 };
