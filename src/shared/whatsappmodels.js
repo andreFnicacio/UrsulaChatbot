@@ -114,22 +114,12 @@ function OperationDefault(number){
                 "button": "Ver Opções",
                 "sections": [
                     {
-                        "title": "Campanhas ✉️",
+                        "title": "Ursula",
                         "rows": [
                             {
-                                "id": "send_campaign",
-                                "title": "Disparar",
-                                "description": "Disparar camapanha cadastrada."
-                            },
-                            {
-                                "id": "input_models",
-                                "title": "Modelos",
-                                "description": "Inserir e administrar modelos cadastrados."
-                            },
-                            {
-                                "id": "input_leads",
-                                "title": "Leads",
-                                "description": "Inserir e administrar contatos cadastrados."
+                                "id": "send_doc",
+                                "title": "Análise",
+                                "description": "Enviar contrato para análise."
                             }
                         ]
                     },
@@ -137,10 +127,10 @@ function OperationDefault(number){
                         "title": "Conta ⚙️",
                         "rows": [
                             {
-                                "id": "delete_account",
-                                "title": "Delete",
-                                "description": "Deletar minha conta."
-                            },                            
+                                "id": "access_backoffice",
+                                "title": "Backoffice",
+                                "description": "Acessar backoffice."
+                            }                            
                         ]
                     }
                 ]
@@ -202,6 +192,45 @@ function OperationFAQ(number){
     });
     return data;
 }
+
+function OperationUrsula(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {
+                "text": "Ursula 🤖"
+            },
+            "footer": {
+                "text": "Gerenciamento Contratos"
+            },
+            "action": {
+                "button": "Opções",
+                "sections": [
+                    {
+                        "title": "Ursula 🧸",
+                        "rows": [
+                            {
+                                "id": "urs_analist",
+                                "title": "Análise",
+                                "description": "Análise Contratual da Ursula"
+                            },                            
+                            {
+                                "id": "urs_backoffice",
+                                "title": "Backoffice",
+                                "description": "Acessar aplicação web"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    });
+    return data;
+}
+
 
 function Button(text,number,decision_ids){
     const data = JSON.stringify({
@@ -266,6 +295,36 @@ function GetOutDoorData(number){
     return data;
 }
 
+function GetOutDoorBackoffice(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "cta_url",
+            "header": {
+                "type": "text",
+                "text": "Plataforma GrantoUS"
+            },
+            "body": {
+                "text": "Click no botão para acessar nossa plataforma."
+            },
+            "footer": {
+                "text": "GrantoUS"
+            },
+            "action": {
+                "name": "cta_url",
+                "parameters": {
+                    "display_text": "Plataforma",
+                    "url": "https://www.grantous.com.br/"
+                }
+            }
+        }
+    });
+    return data;
+}
+
 function MessageLocation(number){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
@@ -286,10 +345,12 @@ module.exports = {
 MessageText,
 OperationDefault,
 OperationLeads,
+OperationUrsula,
 Button,
 QrCode,
 MessageLocation,
 modelDoc,
 OperationFAQ,
-GetOutDoorData
+GetOutDoorData,
+GetOutDoorBackoffice
 };

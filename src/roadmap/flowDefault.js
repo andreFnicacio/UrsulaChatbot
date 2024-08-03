@@ -30,49 +30,27 @@ async function flowDefault(user, textUser) {
     }    
 
     switch (step) {
-        case 'send_campaign':
-            const returnCampaign = await sendTrigger(session, token);
-            console.log("Enviar disparo de campanha: ", returnCampaign);
-            models.push(whatsappModel.MessageText(`Perfeito ${name}! Disparo efetuado com sucesso para a lista de contatos. 😊`, phone));                                      
-            break;          
-        case 'input_models':     
-            models.push(whatsappModel.GetOutDoorData(phone));                                      
-            break;              
-        case 'input_leads':
-            user.step_flow = 'default';
-            user.flow_roadmap = 'leads_flow';                   
-            var operationList = whatsappModel.OperationLeads(phone); 
+        //CHAMDA DE BACKOFFICE
+        case 'urs_backoffice':
+            var operationList = whatsappModel.GetOutDoorBackoffice(phone); 
             models.push(operationList);
-            break;                
-        case 'await_session':
-            models.push(whatsappModel.MessageText(`Ok ${user.name}! Me chame novamento quando quiser!! 😊`, phone));             
-            break;    
-        case 'delete_account':     
-
-            await deleteClient(phone);
-            await redis.deleteUserState(session);            
-        
-            const close = await closeSession(session, token); 
-            console.log("Close Session", close);
-            
-            models.push(whatsappModel.MessageText(`Sua conta foi excluida 🥺. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem 🥰!!`, phone));             
-            break;    
-        case 'default_operation':
-            var operationList = whatsappModel.OperationDefault(phone); 
+            break; 
+        case 'urs_analist':
+            var operationList = whatsappModel.MessageText("Estamos finalizando essa integração 🤖",phone); 
             models.push(operationList);
-            break;                
+            break;             
+        case 'urs_operation':
+            var operationList = whatsappModel.OperationUrsula(phone); 
+            models.push(operationList);
+            break;                            
         default:
-            var textClient = `Olá ${user.name}, Bem vindo novamente!! Gostaria de entrar no *menu* da sua sessão?`;
-            const decision_tree_way = ["default_operation", "await_session"];
+            var textClient = `Olá ${user.name}, Bem vindo!! Gostaria de entrar no *menu* da sua sessão?`;
+            const decision_tree_way = ["urs_operation", "await_session"];
             var button = whatsappModel.Button(textClient, phone, decision_tree_way);            
             models.push(button);    
             break;                                                      
             
     }
-    const updateData = {"id_phone": phone, "updateData": user};
-    await updateClient(updateData);            
-
-    await redis.setUserState(session, user);
         
     return models;    
 }
