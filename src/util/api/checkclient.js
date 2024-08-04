@@ -13,16 +13,15 @@ async function checkClientExists(numberId) {
         if (!client) {
             console.log("Client Redis not found");            
             const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`);
-            console.log(response);
             if (response.phone) {
                 client = response;
                 client.deadline = 86400;                
-            } else {
-                return false;
+                console.log("Client:", client);
+                return client                
             }
-        }
-        console.log("Client:", client);
-        return client;
+
+            return false;
+        };
     } catch (error) {
         console.error('Erro ao verificar cliente: ', error);
         return false;
