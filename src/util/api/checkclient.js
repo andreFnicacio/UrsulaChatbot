@@ -23,7 +23,7 @@ async function checkClientExists(numberId) {
             return false;
         };
 
-        ret
+        return false;
     } catch (error) {
         console.error('Erro ao verificar cliente: ', error);
         return false;
