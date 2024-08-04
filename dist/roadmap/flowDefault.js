@@ -16,7 +16,7 @@ function flowDefault(_x, _x2) {
 }
 function _flowDefault() {
   _flowDefault = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(user, textUser) {
-    var models, token, phone, session, name, step, redisClient, _updateData, returnCampaign, operationList, close, textClient, decision_tree_way, button, updateData;
+    var models, token, phone, session, name, step, redisClient, updateData, operationList, textClient, decision_tree_way, button;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -37,12 +37,12 @@ function _flowDefault() {
             break;
           }
           redisClient.step_flow = "default";
-          _updateData = {
+          updateData = {
             "id_phone": phone,
             "updateData": redisClient
           };
           _context.next = 15;
-          return updateClient(_updateData);
+          return updateClient(updateData);
         case 15:
           _context.next = 17;
           return redis.setUserState(session, redisClient);
@@ -51,65 +51,29 @@ function _flowDefault() {
           return _context.abrupt("return", models);
         case 19:
           _context.t0 = step;
-          _context.next = _context.t0 === 'send_campaign' ? 22 : _context.t0 === 'input_models' ? 28 : _context.t0 === 'input_leads' ? 30 : _context.t0 === 'await_session' ? 35 : _context.t0 === 'delete_account' ? 37 : _context.t0 === 'default_operation' ? 47 : 50;
+          _context.next = _context.t0 === 'urs_backoffice' ? 22 : _context.t0 === 'urs_analist' ? 25 : _context.t0 === 'urs_operation' ? 28 : 31;
           break;
         case 22:
-          _context.next = 24;
-          return sendTrigger(session, token);
-        case 24:
-          returnCampaign = _context.sent;
-          console.log("Enviar disparo de campanha: ", returnCampaign);
-          models.push(whatsappModel.MessageText("Perfeito ".concat(name, "! Disparo efetuado com sucesso para a lista de contatos. \uD83D\uDE0A"), phone));
-          return _context.abrupt("break", 55);
+          operationList = whatsappModel.GetOutDoorBackoffice(phone);
+          models.push(operationList);
+          return _context.abrupt("break", 36);
+        case 25:
+          operationList = whatsappModel.MessageText("Estamos finalizando essa integração 🤖", phone);
+          models.push(operationList);
+          return _context.abrupt("break", 36);
         case 28:
-          models.push(whatsappModel.GetOutDoorData(phone));
-          return _context.abrupt("break", 55);
-        case 30:
-          user.step_flow = 'default';
-          user.flow_roadmap = 'leads_flow';
-          operationList = whatsappModel.OperationLeads(phone);
+          operationList = whatsappModel.OperationUrsula(phone);
           models.push(operationList);
-          return _context.abrupt("break", 55);
-        case 35:
-          models.push(whatsappModel.MessageText("Ok ".concat(user.name, "! Me chame novamento quando quiser!! \uD83D\uDE0A"), phone));
-          return _context.abrupt("break", 55);
-        case 37:
-          _context.next = 39;
-          return deleteClient(phone);
-        case 39:
-          _context.next = 41;
-          return redis.deleteUserState(session);
-        case 41:
-          _context.next = 43;
-          return closeSession(session, token);
-        case 43:
-          close = _context.sent;
-          console.log("Close Session", close);
-          models.push(whatsappModel.MessageText("Sua conta foi excluida \uD83E\uDD7A. Mas fique tranquilo, sempre que quiser se conectar novamente conosco pode me chamar!! Fique bem \uD83E\uDD70!!", phone));
-          return _context.abrupt("break", 55);
-        case 47:
-          operationList = whatsappModel.OperationDefault(phone);
-          models.push(operationList);
-          return _context.abrupt("break", 55);
-        case 50:
-          textClient = "Ol\xE1 ".concat(user.name, ", Bem vindo novamente!! Gostaria de entrar no *menu* da sua sess\xE3o?");
-          decision_tree_way = ["default_operation", "await_session"];
+          return _context.abrupt("break", 36);
+        case 31:
+          textClient = "Ol\xE1 ".concat(user.name, ", Bem vindo!! Gostaria de entrar no *menu* da sua sess\xE3o?");
+          decision_tree_way = ["urs_operation", "await_session"];
           button = whatsappModel.Button(textClient, phone, decision_tree_way);
           models.push(button);
-          return _context.abrupt("break", 55);
-        case 55:
-          updateData = {
-            "id_phone": phone,
-            "updateData": user
-          };
-          _context.next = 58;
-          return updateClient(updateData);
-        case 58:
-          _context.next = 60;
-          return redis.setUserState(session, user);
-        case 60:
+          return _context.abrupt("break", 36);
+        case 36:
           return _context.abrupt("return", models);
-        case 61:
+        case 37:
         case "end":
           return _context.stop();
       }
