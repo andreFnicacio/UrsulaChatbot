@@ -13,7 +13,7 @@ async function checkClientExists(numberId) {
         if (!client) {
             console.log("Client Redis not found");            
             const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`);
-            console.log(response);
+            console.log(response.data);
             if (response) {
                 client = response;
                 client.deadline = 86400;                
