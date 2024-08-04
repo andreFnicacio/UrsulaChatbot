@@ -26,7 +26,7 @@ function _checkClientExists() {
         case 5:
           client = _context.sent;
           if (client) {
-            _context.next = 18;
+            _context.next = 17;
             break;
           }
           console.log("Client Redis not found");
@@ -34,30 +34,30 @@ function _checkClientExists() {
           return axios.get("https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId));
         case 10:
           response = _context.sent;
-          console.log(response);
           if (!response.phone) {
-            _context.next = 17;
+            _context.next = 16;
             break;
           }
           client = response;
           client.deadline = 86400;
-          _context.next = 18;
-          break;
-        case 17:
-          return _context.abrupt("return", false);
-        case 18:
           console.log("Client:", client);
           return _context.abrupt("return", client);
-        case 22:
-          _context.prev = 22;
+        case 16:
+          return _context.abrupt("return", false);
+        case 17:
+          ;
+          _context.next = 24;
+          break;
+        case 20:
+          _context.prev = 20;
           _context.t0 = _context["catch"](1);
           console.error('Erro ao verificar cliente: ', _context.t0);
           return _context.abrupt("return", false);
-        case 26:
+        case 24:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 22]]);
+    }, _callee, null, [[1, 20]]);
   }));
   return _checkClientExists.apply(this, arguments);
 }
