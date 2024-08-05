@@ -29,7 +29,7 @@ function _checkClientExists() {
             break;
           }
           _context.next = 8;
-          return axios.get("https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId));
+          return axios.get("https://grantosegurosapimanagement-production.up.railway.app/users?phone=55".concat(numberId));
         case 8:
           response = _context.sent;
           if (!response) {
