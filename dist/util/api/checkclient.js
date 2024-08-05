@@ -25,7 +25,7 @@ function _checkClientExists() {
         case 4:
           client = _context.sent;
           url = "https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId);
-          url.replace("%27", "");
+          url = url.replace("%27", "");
           if (client) {
             _context.next = 17;
             break;
