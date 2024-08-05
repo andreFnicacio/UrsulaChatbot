@@ -1,31 +1,25 @@
-const redis = require("../util/redis/redis_config");
 const whatsappModel = require("../shared/whatsappmodels");
-const sendTrigger = require("../util/api/sendTrigger");
-const closeSession = require("../util/api/closeSession"); 
-const deleteClient = require("../util/api/deleteClient"); 
-const sendDocumentModel = require("../util/api/sendDocumentExample");
-const updateClient = require("../util/api/updateClient");
 
-async function flowDefault(user, textUser) {
+async function flowDefault(number, textUser) {
     // Se não existir, manda mensagem de despedida
     var models = [];
     textUser = textUser.toLowerCase();
-    const token = user.token;
-    const phone = user.phone;
-    const session = user.id_session;
-    const name = user.name; 
-    const step = user.step_flow === "disconnect" ? "disconnect" : textUser;
+    const token = "user.token";
+    const phone = number;
+    const session = "user.id_session";
+    const name = "user.name"; 
+    const step = "user.step";
 
-    var redisClient = await redis.getUserState(session);    
+    // var redisClient = await redis.getUserState(session);    
 
     if (textUser === "await_session"){
-        redisClient.step_flow = "default"; 
+    //    redisClient.step_flow = "default"; 
 
         const updateData = {"id_phone": phone, "updateData": redisClient}; 
-        await updateClient(updateData);   
-        await redis.setUserState(session, redisClient);
+        //await updateClient(updateData);   
+        //await redis.setUserState(session, redisClient);
 
-        models.push(whatsappModel.MessageText(`Ok ${user.name}! Me chame novamento quando quiser!! 😊`, phone)); 
+        models.push(whatsappModel.MessageText(`Ok! Me chame novamento quando quiser!! 😊`, phone)); 
         return models;
     }    
 
@@ -44,7 +38,7 @@ async function flowDefault(user, textUser) {
             models.push(operationList);
             break;                            
         default:
-            var textClient = `Olá ${user.name}, Bem vindo!! Gostaria de entrar no *menu* da sua sessão?`;
+            var textClient = `Olá, Bem vindo!! Gostaria de entrar no *menu* da sua sessão?`;
             const decision_tree_way = ["urs_operation", "await_session"];
             var button = whatsappModel.Button(textClient, phone, decision_tree_way);            
             models.push(button);    

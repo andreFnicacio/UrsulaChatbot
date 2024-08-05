@@ -11,7 +11,7 @@ const flowLeads = require("../roadmap/flowLeads");
 async function Process(textUser, number){
     textUser = textUser.toLowerCase();
 
-    const user = await checkClientExists(number);
+    const user = false // await checkClientExists(number);
     let models;
 
     if (user) {
@@ -34,7 +34,7 @@ async function Process(textUser, number){
         }
     } else {
         // models = await flowInitClient(number,textUser);
-        models = await flowInitClient(number,textUser);
+        models = await flowDefault(number,textUser);
     }
 
     models.forEach(model => {
