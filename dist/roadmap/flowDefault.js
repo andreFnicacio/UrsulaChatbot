@@ -21,7 +21,7 @@ function _flowDefault() {
           phone = number;
           session = "user.id_session";
           name = "user.name";
-          step = "user.step"; // var redisClient = await redis.getUserState(session);    
+          step = textUser; // var redisClient = await redis.getUserState(session);    
           if (!(textUser === "await_session")) {
             _context.next = 11;
             break;

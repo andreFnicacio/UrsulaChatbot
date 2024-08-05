@@ -8,7 +8,7 @@ async function flowDefault(number, textUser) {
     const phone = number;
     const session = "user.id_session";
     const name = "user.name"; 
-    const step = "user.step";
+    const step = textUser;
 
     // var redisClient = await redis.getUserState(session);    
 
