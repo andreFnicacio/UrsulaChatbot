@@ -33,6 +33,7 @@ async function Process(textUser, number){
                 models = await flowDefault(user,textUser);
         }
     } else {
+        // models = await flowInitClient(number,textUser);
         models = await flowInitClient(number,textUser);
     }
 

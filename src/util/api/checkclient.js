@@ -5,20 +5,18 @@ const closeSession = require("../api/closeSession");
 const updateClient = require("../api/updateClient");
 
 async function checkClientExists(numberId) {
-    console.log("Iniciando Checagem");
     try {
         const sessionKey = `session_${numberId}`;                
         let client = await redis.getUserState(sessionKey);
 
-        if (!client) {
-            console.log("Client Redis not found");            
-            //const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`);
-            //if (response) {
-            //    client = response;
-            //    client.deadline = 86400;                
-            //    console.log("Client:", client);
-            //    return client                
-            //}
+        if (!client) {         
+            const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`);
+            if (response) {
+                client = response;
+                client.deadline = 86400;                
+                console.log("Client:", client);
+                return client                
+            }
 
             return false;
         };
