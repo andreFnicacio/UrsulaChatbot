@@ -14,7 +14,7 @@ function checkClientExists(_x) {
 }
 function _checkClientExists() {
   _checkClientExists = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(numberId) {
-    var sessionKey, client, url, response;
+    var sessionKey, client, cleanedNumberId, url, response;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -24,8 +24,9 @@ function _checkClientExists() {
           return redis.getUserState(sessionKey);
         case 4:
           client = _context.sent;
-          url = "https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId);
-          url = url.replace("%27", "");
+          // Remova quaisquer espaços ou apóstrofos do numberId
+          cleanedNumberId = numberId.replace(/['\s]/g, '');
+          url = "https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(cleanedNumberId);
           if (client) {
             _context.next = 17;
             break;

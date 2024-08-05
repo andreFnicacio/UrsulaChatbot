@@ -8,8 +8,9 @@ async function checkClientExists(numberId) {
     try {
         const sessionKey = `session_${numberId}`;                
         let client = await redis.getUserState(sessionKey);
-        let url = `https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`
-        url = url.replace("%27","")
+        // Remova quaisquer espaços ou apóstrofos do numberId
+        let cleanedNumberId = numberId.replace(/['\s]/g, '');
+        let url = `https://grantosegurosapimanagement-production.up.railway.app/users?phone=${cleanedNumberId}`;
         if (!client) {         
             const response = await axios.get(url);
             if (response) {
