@@ -8,9 +8,10 @@ async function checkClientExists(numberId) {
     try {
         const sessionKey = `session_${numberId}`;                
         let client = await redis.getUserState(sessionKey);
-
+        let url = `https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`
+        url.replace("%27","")
         if (!client) {         
-            const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`);
+            const response = await axios.get(url);
             if (response) {
                 client = response;
                 client.deadline = 86400;                

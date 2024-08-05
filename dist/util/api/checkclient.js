@@ -14,7 +14,7 @@ function checkClientExists(_x) {
 }
 function _checkClientExists() {
   _checkClientExists = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(numberId) {
-    var sessionKey, client, response;
+    var sessionKey, client, url, response;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -24,37 +24,39 @@ function _checkClientExists() {
           return redis.getUserState(sessionKey);
         case 4:
           client = _context.sent;
+          url = "https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId);
+          url.replace("%27", "");
           if (client) {
-            _context.next = 15;
+            _context.next = 17;
             break;
           }
-          _context.next = 8;
-          return axios.get("https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(numberId));
-        case 8:
+          _context.next = 10;
+          return axios.get(url);
+        case 10:
           response = _context.sent;
           if (!response) {
-            _context.next = 14;
+            _context.next = 16;
             break;
           }
           client = response;
           client.deadline = 86400;
           console.log("Client:", client);
           return _context.abrupt("return", client);
-        case 14:
+        case 16:
           return _context.abrupt("return", false);
-        case 15:
+        case 17:
           ;
           return _context.abrupt("return", false);
-        case 19:
-          _context.prev = 19;
+        case 21:
+          _context.prev = 21;
           _context.t0 = _context["catch"](0);
           console.error('Erro ao verificar cliente: ', _context.t0);
           return _context.abrupt("return", false);
-        case 23:
+        case 25:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 19]]);
+    }, _callee, null, [[0, 21]]);
   }));
   return _checkClientExists.apply(this, arguments);
 }
