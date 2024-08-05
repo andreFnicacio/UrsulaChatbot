@@ -10,7 +10,7 @@ async function checkClientExists(numberId) {
         let client = await redis.getUserState(sessionKey);
 
         if (!client) {         
-            const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=55${numberId}`);
+            const response = await axios.get(`https://grantosegurosapimanagement-production.up.railway.app/users?phone=${numberId}`);
             if (response) {
                 client = response;
                 client.deadline = 86400;                
