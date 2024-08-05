@@ -11,7 +11,7 @@ const flowLeads = require("../roadmap/flowLeads");
 async function Process(textUser, number){
     textUser = textUser.toLowerCase();
 
-    const user = false //await checkClientExists(number);
+    const user = await checkClientExists(number);
     let models;
 
     if (user) {
