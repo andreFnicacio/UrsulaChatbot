@@ -171,19 +171,19 @@ function OperationUrsula(number) {
     "interactive": {
       "type": "list",
       "body": {
-        "text": "Ursula 🤖"
+        "text": "Aurora ✨"
       },
       "footer": {
-        "text": "Gerenciamento Contratos"
+        "text": "Assistente Digital"
       },
       "action": {
         "button": "Opções",
         "sections": [{
-          "title": "Ursula 🧸",
+          "title": "Menu 💻",
           "rows": [{
             "id": "urs_analist",
             "title": "Análise",
-            "description": "Análise Contratual da Ursula"
+            "description": "Análise Contratual da Aurora"
           }, {
             "id": "urs_backoffice",
             "title": "Backoffice",
@@ -234,19 +234,19 @@ function GetOutDoorData(number) {
       "type": "cta_url",
       "header": {
         "type": "text",
-        "text": "Plataforma GrantoUS"
+        "text": "Plataforma FiveGuys"
       },
       "body": {
         "text": "Click no botão para acessar nossa plataforma."
       },
       "footer": {
-        "text": "GrantoUS"
+        "text": "FiveGuys 💾"
       },
       "action": {
         "name": "cta_url",
         "parameters": {
           "display_text": "Plataforma",
-          "url": "https://www.grantous.com.br/"
+          "url": "https://www.fiveguysinthebike.online/"
         }
       }
     }
@@ -263,19 +263,19 @@ function GetOutDoorBackoffice(number) {
       "type": "cta_url",
       "header": {
         "type": "text",
-        "text": "Plataforma GrantoUS"
+        "text": "Plataforma FiveGuys"
       },
       "body": {
         "text": "Click no botão para acessar nossa plataforma."
       },
       "footer": {
-        "text": "GrantoUS"
+        "text": "FiveGuys"
       },
       "action": {
         "name": "cta_url",
         "parameters": {
           "display_text": "Plataforma",
-          "url": "https://www.grantous.com.br/"
+          "url": "https://www.fiveguysinthebike.online/"
         }
       }
     }
