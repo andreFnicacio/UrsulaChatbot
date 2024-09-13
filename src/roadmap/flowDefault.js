@@ -12,16 +12,16 @@ async function flowDefault(number, textUser) {
 
     // var redisClient = await redis.getUserState(session);    
 
-    if (textUser === "await_session"){
-    //    redisClient.step_flow = "default"; 
-
-        const updateData = {"id_phone": phone, "updateData": redisClient}; 
-        //await updateClient(updateData);   
-        //await redis.setUserState(session, redisClient);
-
-        models.push(whatsappModel.MessageText(`Ok! Me chame novamento quando quiser!! 😊`, phone)); 
-        return models;
-    }    
+    //if (textUser === "await_session"){
+    ////    redisClient.step_flow = "default"; 
+//
+    //    const updateData = {"id_phone": phone, "updateData": redisClient}; 
+    //    //await updateClient(updateData);   
+    //    //await redis.setUserState(session, redisClient);
+//
+    //    models.push(whatsappModel.MessageText(`Ok! Me chame novamento quando quiser!! 😊`, phone)); 
+    //    return models;
+    //}    
 
     switch (step) {
         //CHAMDA DE BACKOFFICE
