@@ -1,7 +1,7 @@
 const redis = require('redis');
 
 const client = redis.createClient({
-    url: 'redis://default:DBjtBiEEcnliScugINQPbSJlBmgrQjQl@roundhouse.proxy.rlwy.net:59859', // ajuste isso para a URL do seu servidor Redis
+    url: 'redis://default:cukwIHxfJsBURVkmvFgjQWYEXVJFvxkb@autorack.proxy.rlwy.net:15108', // ajuste isso para a URL do seu servidor Redis
     socket: {
         connectTimeout: 50000
     }
