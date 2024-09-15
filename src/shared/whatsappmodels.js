@@ -247,7 +247,7 @@ function operationAgent(number){
                             },                            
                             {
                                 "id": "urs_assistant",
-                                "title": "Aurora",
+                                "title": "Lian",
                                 "description": "Iniciar conversa com modelo"
                             }
                         ]
@@ -267,7 +267,7 @@ function OperationUrsula(number){
         "interactive": {
             "type": "list",
             "body": {
-                "text": "Aurora ✨"
+                "text": "Lian ✨"
             },
             "footer": {
                 "text": "Assistente Digital"
@@ -281,7 +281,7 @@ function OperationUrsula(number){
                             {
                                 "id": "urs_analist",
                                 "title": "Análise",
-                                "description": "Análise Contratual da Aurora"
+                                "description": "Análise Contratual da Lian"
                             },                            
                             {
                                 "id": "urs_backoffice",
@@ -291,7 +291,7 @@ function OperationUrsula(number){
                             {
                                 "id": "urs_faqs",
                                 "title": "FAQ",
-                                "description": "Duvidas Frequentes (Aurora)"
+                                "description": "Duvidas Frequentes (Lian)"
                             }
                         ]
                     }

@@ -120,13 +120,13 @@ async function flowDefault(number,user,textUser) {
             models.push(operationList);
             break;   
         case 'urs_who':
-            models.push(whatsappModel.MessageText("Conheça Aurora, nossa assistente digital avançada 🚀, treinada para ser sua educadora pessoal. Aurora é especialista em analisar documentos e extrair informações cruciais, oferecendo suporte automatizado para otimizar a gestão dos seus contratos. Com ela, você tem à disposição uma ferramenta poderosa para facilitar seu dia a dia. 😉", number));
+            models.push(whatsappModel.MessageText("Conheça Lian, nossa assistente digital avançada 🚀, treinada para ser sua educadora pessoal. Lian é especialista em analisar documentos e extrair informações cruciais, oferecendo suporte automatizado para otimizar a gestão dos seus contratos. Com ela, você tem à disposição uma ferramenta poderosa para facilitar seu dia a dia. 😉", number));
             break;  
         case 'urs_work':
-            models.push(whatsappModel.MessageText("A mágica por trás da Aurora é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
+            models.push(whatsappModel.MessageText("A mágica por trás da Lian é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
             break;   
         case 'urs_access':
-            models.push(whatsappModel.MessageText("Você pode acessar a Aurora pelo nosso portal online 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
+            models.push(whatsappModel.MessageText("Você pode acessar a Lian pelo nosso portal online 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
             models.push(whatsappModel.GetOutDoorData(number));                                      
             break;                                                                      
         case 'urs_operation':
