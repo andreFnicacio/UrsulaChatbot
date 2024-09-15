@@ -9,7 +9,7 @@ async function checkClientExists(numberId) {
         const sessionKey = `session_${numberId}`;                
         
         // Tenta pegar o cliente do Redis primeiro
-        let client = await redis.getUserState(sessionKey);
+        let client = false//await redis.getUserState(sessionKey);
 
         // Limpa espaços e apóstrofos no número
         let cleanedNumberId = numberId.replace(/['\s]/g, '');
