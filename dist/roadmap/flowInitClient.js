@@ -29,7 +29,7 @@ function _flowInitClient() {
           models.push(whatsappModel.MessageText("Ursula é nossa assistente digital super poderosa 🚀, treinada com mais de 100 mil contratos em diversos formatos. Ela analisa documentos, extrai informações importantes e te dá aquele suporte automatizado para facilitar a gestão dos seus contratos. 😉.", number));
           return _context.abrupt("break", 24);
         case 10:
-          models.push(whatsappModel.MessageText("A mágica por trás da Aurora é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
+          models.push(whatsappModel.MessageText("A mágica por trás da Lian é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
           return _context.abrupt("break", 24);
         case 12:
           models.push(whatsappModel.MessageText("Você pode acessar a Ursula pelo nosso portal online, disponível no site da Granto Seguros 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));

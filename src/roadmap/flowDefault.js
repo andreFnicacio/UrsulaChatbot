@@ -52,6 +52,7 @@ async function flowDefault(number,user,textUser) {
             console.log(response.data);
             const assistant = whatsappModel.MessageText(response['data'].content, phone)
             await whatsappService.SendMessageWhatsApp(assistant);
+            return;
         } catch (error) {
             console.error("Erro ao fazer a requisição para a API: ", error);
         }

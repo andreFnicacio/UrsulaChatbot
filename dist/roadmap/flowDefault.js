@@ -48,7 +48,7 @@ function _flowDefault() {
           redisData = _context.sent;
           document_id = redisData[phone] || false; // Verifica se o document_id é válido e foi registrado
           if (!(document_id && uuidRegex.test(document_id))) {
-            _context.next = 26;
+            _context.next = 27;
             break;
           }
           _context.prev = 13;
@@ -70,13 +70,12 @@ function _flowDefault() {
           _context.next = 21;
           return whatsappService.SendMessageWhatsApp(assistant);
         case 21:
-          _context.next = 26;
-          break;
-        case 23:
-          _context.prev = 23;
+          return _context.abrupt("return");
+        case 24:
+          _context.prev = 24;
           _context.t0 = _context["catch"](13);
           console.error("Erro ao fazer a requisição para a API: ", _context.t0);
-        case 26:
+        case 27:
           if (uuidRegex.test(step)) {
             try {
               // Carrega o conteúdo atual do JSON
@@ -95,11 +94,11 @@ function _flowDefault() {
             }
           }
           if (!(step == 'urs_assistant')) {
-            _context.next = 41;
+            _context.next = 42;
             break;
           }
           if (!(client.last_chats && client.last_chats.length > 0)) {
-            _context.next = 36;
+            _context.next = 37;
             break;
           }
           lastFiveChats = client.last_chats.slice(-5);
@@ -114,59 +113,63 @@ function _flowDefault() {
           // Chamando a função listLastFiveChats com os dados montados
           _operationList = whatsappModel.listLastFiveChats(phone, rows);
           models.push(_operationList);
-          _context.next = 40;
+          _context.next = 41;
           break;
-        case 36:
-          _context.next = 38;
+        case 37:
+          _context.next = 39;
           return whatsappService.SendMessageWhatsApp(whatsappModel.MessageText("Opa, percebi que você ainda não tem um chat inciado\nAcesse nossa plataforma web para iniciar as anotações e liberar seu assistente ou se prefirir podemos iniciar por aqui tambem, gostaria de ver outras funções ? 😉", number));
-        case 38:
+        case 39:
           operationList = whatsappModel.GetOutDoorData(phone);
           models.push(operationList);
-        case 40:
-          return _context.abrupt("return", models);
         case 41:
+          return _context.abrupt("return", models);
+        case 42:
           _context.t1 = step;
-          _context.next = _context.t1 === 'urs_backoffice' ? 44 : _context.t1 === 'urs_analist' ? 47 : _context.t1 === 'urs_faqs' ? 50 : _context.t1 === 'urs_who' ? 53 : _context.t1 === 'urs_work' ? 55 : _context.t1 === 'urs_access' ? 57 : _context.t1 === 'urs_operation' ? 60 : 63;
+          _context.next = _context.t1 === 'urs_backoffice' ? 45 : _context.t1 === 'urs_analist' ? 48 : _context.t1 === 'urs_faqs' ? 51 : _context.t1 === 'urs_translate' ? 54 : _context.t1 === 'urs_who' ? 57 : _context.t1 === 'urs_work' ? 59 : _context.t1 === 'urs_access' ? 61 : _context.t1 === 'urs_operation' ? 64 : 67;
           break;
-        case 44:
+        case 45:
           operationList = whatsappModel.GetOutDoorBackoffice(phone);
           models.push(operationList);
-          return _context.abrupt("break", 68);
-        case 47:
+          return _context.abrupt("break", 72);
+        case 48:
           operationList = whatsappModel.operationAgent(phone);
           models.push(operationList);
-          return _context.abrupt("break", 68);
-        case 50:
+          return _context.abrupt("break", 72);
+        case 51:
           operationList = whatsappModel.OperationFAQ(phone);
           models.push(operationList);
-          return _context.abrupt("break", 68);
-        case 53:
-          models.push(whatsappModel.MessageText("Conheça Aurora, nossa assistente digital avançada 🚀, treinada para ser sua educadora pessoal. Aurora é especialista em analisar documentos e extrair informações cruciais, oferecendo suporte automatizado para otimizar a gestão dos seus contratos. Com ela, você tem à disposição uma ferramenta poderosa para facilitar seu dia a dia. 😉", number));
-          return _context.abrupt("break", 68);
-        case 55:
-          models.push(whatsappModel.MessageText("A mágica por trás da Aurora é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
-          return _context.abrupt("break", 68);
-        case 57:
-          models.push(whatsappModel.MessageText("Você pode acessar a Aurora pelo nosso portal online 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
+          return _context.abrupt("break", 72);
+        case 54:
           models.push(whatsappModel.GetOutDoorData(number));
-          return _context.abrupt("break", 68);
-        case 60:
+          models.push(whatsappModel.MessageText("Opa! Estamos desenvolvendo essa função ainda!\nFique a vontade para consultar nossos produtos!", number));
+          return _context.abrupt("break", 72);
+        case 57:
+          models.push(whatsappModel.MessageText("Conheça Lian, nossa assistente digital avançada 🚀, treinada para ser sua educadora pessoal. Lian é especialista em analisar documentos e extrair informações cruciais, oferecendo suporte automatizado para otimizar a gestão dos seus contratos. Com ela, você tem à disposição uma ferramenta poderosa para facilitar seu dia a dia. 😉", number));
+          return _context.abrupt("break", 72);
+        case 59:
+          models.push(whatsappModel.MessageText("A mágica por trás da Lian é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
+          return _context.abrupt("break", 72);
+        case 61:
+          models.push(whatsappModel.MessageText("Você pode acessar a Lian pelo nosso portal online 🌐. Só fazer login e começar a usar os serviços da nossa assistente digital top! 😃", number));
+          models.push(whatsappModel.GetOutDoorData(number));
+          return _context.abrupt("break", 72);
+        case 64:
           operationList = whatsappModel.OperationUrsula(phone);
           models.push(operationList);
-          return _context.abrupt("break", 68);
-        case 63:
+          return _context.abrupt("break", 72);
+        case 67:
           textClient = "Ol\xE1 ".concat(name, ", Bem vindo!! Gostaria de entrar no *menu* da sua sess\xE3o?");
           decision_tree_way = ["urs_operation", "await_session"];
           button = whatsappModel.Button(textClient, phone, decision_tree_way);
           models.push(button);
-          return _context.abrupt("break", 68);
-        case 68:
+          return _context.abrupt("break", 72);
+        case 72:
           return _context.abrupt("return", models);
-        case 69:
+        case 73:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[13, 23]]);
+    }, _callee, null, [[13, 24]]);
   }));
   return _flowDefault.apply(this, arguments);
 }
