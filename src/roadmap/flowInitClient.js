@@ -16,7 +16,7 @@ async function flowInitClient(number,textUser) {
             break;
             
         case 'urs_work':
-            models.push(whatsappModel.MessageText("A mágica por trás da Ursula usa a Meta Cloud API, nossa própria API e uma conexão verificada da Meta. Ela processa documentos legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
+            models.push(whatsappModel.MessageText("A mágica por trás da Aurora é usar a Meta Cloud API, nossa própria API e uma conexão verificada com a OpenAI. Ela processa audios legíveis (a nível de computação) 🖥️, extrai os dados relevantes e responde de forma rápida e segura. 💡", number));
             break; 
 
         case 'urs_access':

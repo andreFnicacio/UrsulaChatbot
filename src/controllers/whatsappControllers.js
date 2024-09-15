@@ -82,7 +82,7 @@ function GetTextUser(messages){
         console.log("Tipagem de Mensagens Documents: ",messages);
     }
     else{
-        myConsole.log("sin mensaje");
+        myConsole.log("sin mensaje", messages);
     }
     return message_client;
 }

@@ -19,54 +19,60 @@ function _checkClientExists() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          sessionKey = "session_".concat(numberId);
+          sessionKey = "session_".concat(numberId); // Tenta pegar o cliente do Redis primeiro
           _context.next = 4;
           return redis.getUserState(sessionKey);
         case 4:
           client = _context.sent;
-          // Remova quaisquer espaços ou apóstrofos do numberId
+          // Limpa espaços e apóstrofos no número
           cleanedNumberId = numberId.replace(/['\s]/g, '');
-          url = "https://grantosegurosapimanagement-production.up.railway.app/users?phone=".concat(cleanedNumberId);
+          url = "https://fiveguysinthebike.online/api/v1/verify_user?phone=".concat(cleanedNumberId); // Se não achou no Redis, faz a requisição no banco de dados
           if (client) {
-            _context.next = 17;
+            _context.next = 20;
             break;
           }
           _context.next = 10;
           return axios.get(url);
         case 10:
           response = _context.sent;
-          if (!response) {
-            _context.next = 16;
+          console.log("Retorno do banco de dados", response.data);
+          if (!(response && response.data)) {
+            _context.next = 19;
             break;
           }
-          client = response;
+          client = response.data;
+
+          // Definir o tempo de expiração para o Redis (1 dia = 86400 segundos)
           client.deadline = 86400;
-          console.log("Client:", client);
-          return _context.abrupt("return", client);
-        case 16:
-          return _context.abrupt("return", false);
+
+          // Salva os dados do cliente no Redis
+          _context.next = 17;
+          return redis.setUserState(sessionKey, client);
         case 17:
-          ;
+          console.log("Cliente encontrado no banco, salvo no Redis:", client);
+          return _context.abrupt("return", client);
+        case 19:
           return _context.abrupt("return", false);
-        case 21:
-          _context.prev = 21;
+        case 20:
+          // Cliente encontrado no Redis
+          console.log("Cliente encontrado no Redis:", client);
+          return _context.abrupt("return", client);
+        case 24:
+          _context.prev = 24;
           _context.t0 = _context["catch"](0);
           console.error('Erro ao verificar cliente: ', _context.t0);
           return _context.abrupt("return", false);
-        case 25:
+        case 28:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 21]]);
+    }, _callee, null, [[0, 24]]);
   }));
   return _checkClientExists.apply(this, arguments);
 }
 function isSessionActive(_x2) {
   return _isSessionActive.apply(this, arguments);
-} //async function updateClientSession(client, sessionKey, deadline) {
-//    client.deadline = deadline;
-//    await redis.setUserState(sessionKey, client);
-//}
+}
 function _isSessionActive() {
   _isSessionActive = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(client) {
     var status;
@@ -101,6 +107,8 @@ function _handleInactiveSession() {
           client.flow_roadmap = "session_flow";
           client.step_flow = "await_conect";
           client.deadline = 86400;
+
+          // Atualiza o cliente no banco de dados
           _context3.next = 6;
           return updateClient({
             "id_phone": client.phone,

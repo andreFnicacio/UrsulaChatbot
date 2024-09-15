@@ -6,76 +6,80 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var whatsappService = require("../services/whatsappService");
 var checkClientExists = require("../util/api/checkclient");
-var flowInitClient = require("../roadmap/flowInitClient");
-var flowSignUp = require("../roadmap/flowSignUp");
-var flowSession = require("../roadmap/flowSession");
-var flowTrigger = require("../roadmap/flowTrigger");
+var whatsappModel = require("../shared/whatsappmodels");
 var flowDefault = require("../roadmap/flowDefault");
-var flowLeads = require("../roadmap/flowLeads");
 function Process(_x, _x2) {
   return _Process.apply(this, arguments);
 }
 function _Process() {
-  _Process = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(textUser, number) {
-    var user, models;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
+  _Process = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(textUser, number) {
+    var user, models, notAuserYet;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
+          _context2.prev = 0;
+          // Coloca o texto em minúsculas para facilitar o processamento
           textUser = textUser.toLowerCase();
-          user = false; // await checkClientExists(number);
+          // Verifica se o cliente existe (via Redis ou Banco de Dados)
+          console.log("Numero Request:", number);
+          _context2.next = 5;
+          return checkClientExists(number);
+        case 5:
+          user = _context2.sent;
           if (!user) {
-            _context.next = 27;
+            _context2.next = 13;
             break;
           }
-          _context.t0 = user.flow_roadmap;
-          _context.next = _context.t0 === 'trigger_flow' ? 6 : _context.t0 === 'session_flow' ? 10 : _context.t0 === 'signup_flow' ? 14 : _context.t0 === 'leads_flow' ? 18 : 22;
-          break;
-        case 6:
-          _context.next = 8;
-          return flowTrigger(user, textUser);
-        case 8:
-          models = _context.sent;
-          return _context.abrupt("break", 25);
+          // Caso o cliente exista, segue para o fluxo padrão
+          console.log("User Exist: (Put the Messages):", textUser);
+          _context2.next = 10;
+          return flowDefault(number, user, textUser);
         case 10:
-          _context.next = 12;
-          return flowSession(user, textUser);
-        case 12:
-          models = _context.sent;
-          return _context.abrupt("break", 25);
-        case 14:
-          _context.next = 16;
-          return flowSignUp(user, textUser);
-        case 16:
-          models = _context.sent;
-          return _context.abrupt("break", 25);
-        case 18:
-          _context.next = 20;
-          return flowLeads(user, textUser);
-        case 20:
-          models = _context.sent;
-          return _context.abrupt("break", 25);
-        case 22:
-          _context.next = 24;
-          return flowDefault(user, textUser);
-        case 24:
-          models = _context.sent;
-        case 25:
-          _context.next = 30;
+          models = _context2.sent;
+          _context2.next = 15;
           break;
-        case 27:
-          _context.next = 29;
-          return flowDefault(number, textUser);
-        case 29:
-          models = _context.sent;
-        case 30:
-          models.forEach(function (model) {
-            whatsappService.SendMessageWhatsApp(model);
-          });
-        case 31:
+        case 13:
+          notAuserYet = whatsappModel.GetNotUser(number);
+          whatsappService.SendMessageWhatsApp(notAuserYet);
+        case 15:
+          // Envia as mensagens através do WhatsApp Service
+          if (models && models.length > 0) {
+            models.forEach( /*#__PURE__*/function () {
+              var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(model) {
+                return _regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.prev = 0;
+                      _context.next = 3;
+                      return whatsappService.SendMessageWhatsApp(model);
+                    case 3:
+                      return _context.abrupt("return");
+                    case 6:
+                      _context.prev = 6;
+                      _context.t0 = _context["catch"](0);
+                      console.error("Erro ao enviar mensagem para ".concat(number, ":"), _context.t0);
+                    case 9:
+                    case "end":
+                      return _context.stop();
+                  }
+                }, _callee, null, [[0, 6]]);
+              }));
+              return function (_x3) {
+                return _ref.apply(this, arguments);
+              };
+            }());
+          }
+          _context2.next = 21;
+          break;
+        case 18:
+          _context2.prev = 18;
+          _context2.t0 = _context2["catch"](0);
+          console.error('Erro no processamento da mensagem:', _context2.t0);
+        case 21:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
-    }, _callee);
+    }, _callee2, null, [[0, 18]]);
   }));
   return _Process.apply(this, arguments);
 }

@@ -7,23 +7,39 @@ const updateClient = require("../api/updateClient");
 async function checkClientExists(numberId) {
     try {
         const sessionKey = `session_${numberId}`;                
+        
+        // Tenta pegar o cliente do Redis primeiro
         let client = await redis.getUserState(sessionKey);
-        // Remova quaisquer espaços ou apóstrofos do numberId
+
+        // Limpa espaços e apóstrofos no número
         let cleanedNumberId = numberId.replace(/['\s]/g, '');
-        let url = `https://grantosegurosapimanagement-production.up.railway.app/users?phone=${cleanedNumberId}`;
-        if (!client) {         
+        let url = `https://fiveguysinthebike.online/api/v1/verify_user?phone=${cleanedNumberId}`;
+        
+        // Se não achou no Redis, faz a requisição no banco de dados
+        if (!client) {
             const response = await axios.get(url);
-            if (response) {
-                client = response;
-                client.deadline = 86400;                
-                console.log("Client:", client);
-                return client                
+
+            console.log("Retorno do banco de dados", response.data)
+
+            if (response && response.data) {
+                client = response.data;
+                
+                // Definir o tempo de expiração para o Redis (1 dia = 86400 segundos)
+                client.deadline = 86400; 
+                
+                // Salva os dados do cliente no Redis
+                await redis.setUserState(sessionKey, client);
+                
+                console.log("Cliente encontrado no banco, salvo no Redis:", client);
+                return client;
             }
+            return false;  // Se não encontrou no banco
+        }
 
-            return false;
-        };
+        // Cliente encontrado no Redis
+        console.log("Cliente encontrado no Redis:", client);
+        return client;
 
-        return false;
     } catch (error) {
         console.error('Erro ao verificar cliente: ', error);
         return false;
@@ -35,19 +51,16 @@ async function isSessionActive(client) {
     return status;
 }
 
-//async function updateClientSession(client, sessionKey, deadline) {
-//    client.deadline = deadline;
-//    await redis.setUserState(sessionKey, client);
-//}
-
 async function handleInactiveSession(client, sessionKey) {
     if (client.flow_roadmap !== "session_flow") {
         client.flow_roadmap = "session_flow";
         client.step_flow = "await_conect";
         client.deadline = 86400;
-        await updateClient({"id_phone": client.phone, "updateData": client});
+        
+        // Atualiza o cliente no banco de dados
+        await updateClient({ "id_phone": client.phone, "updateData": client });
         return client;
-    }else{
+    } else {
         return client;
     }
 }

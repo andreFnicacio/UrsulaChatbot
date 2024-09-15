@@ -193,6 +193,72 @@ function OperationFAQ(number){
     return data;
 }
 
+
+function listLastFiveChats(number, rows){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {
+                "text": "Chats 🤖"
+            },
+            "footer": {
+                "text": "Assistente Digital"
+            },
+            "action": {
+                "button": "Opções",
+                "sections": [
+                    {
+                        "title": "Chat LIst 💻",
+                        "rows": rows
+                    }
+                ]
+            }
+        }
+    });
+    return data;
+}
+
+function operationAgent(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {
+                "text": "Operações 🤖"
+            },
+            "footer": {
+                "text": "Assistente Digital"
+            },
+            "action": {
+                "button": "Opções",
+                "sections": [
+                    {
+                        "title": "Menu 💻",
+                        "rows": [
+                            {
+                                "id": "urs_translate",
+                                "title": "Anotações",
+                                "description": "Criar anotações de mp3 file"
+                            },                            
+                            {
+                                "id": "urs_assistant",
+                                "title": "Aurora",
+                                "description": "Iniciar conversa com modelo"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    });
+    return data;
+}
+
 function OperationUrsula(number){
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
@@ -221,6 +287,11 @@ function OperationUrsula(number){
                                 "id": "urs_backoffice",
                                 "title": "Backoffice",
                                 "description": "Acessar aplicação web"
+                            },                            
+                            {
+                                "id": "urs_faqs",
+                                "title": "FAQ",
+                                "description": "Duvidas Frequentes (Aurora)"
                             }
                         ]
                     }
@@ -261,6 +332,36 @@ function Button(text,number,decision_ids){
                 ]
             }
         }     
+    });
+    return data;
+}
+
+function GetNotUser(number){
+    const data = JSON.stringify({
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "cta_url",
+            "header": {
+                "type": "text",
+                "text": "Cadastro FiveGuys"
+            },
+            "body": {
+                "text": "Click no botão para acessar nossa plataforma."
+            },
+            "footer": {
+                "text": "FiveGuys 💾"
+            },
+            "action": {
+                "name": "cta_url",
+                "parameters": {
+                    "display_text": "Cadastrar",
+                    "url": "https://www.fiveguysinthebike.online/accounts/register/"
+                }
+            }
+        }
     });
     return data;
 }
@@ -346,11 +447,14 @@ MessageText,
 OperationDefault,
 OperationLeads,
 OperationUrsula,
+operationAgent,
+listLastFiveChats,
 Button,
 QrCode,
 MessageLocation,
 modelDoc,
 OperationFAQ,
 GetOutDoorData,
+GetNotUser,
 GetOutDoorBackoffice
 };

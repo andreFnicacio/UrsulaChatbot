@@ -1,7 +1,5 @@
 "use strict";
 
-var fs = require("fs");
-var myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 var https = require("https");
 function SendMessageWhatsApp(data) {
   var options = {
