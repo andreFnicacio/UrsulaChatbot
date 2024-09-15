@@ -119,6 +119,10 @@ async function flowDefault(number,user,textUser) {
             var operationList = whatsappModel.OperationFAQ(phone); 
             models.push(operationList);
             break;   
+        case 'urs_translate':
+            models.push(whatsappModel.GetOutDoorData(number));             
+            models.push(whatsappModel.MessageText("Opa! Estamos desenvolvendo essa função ainda!\nFique a vontade para consultar nossos produtos!", number));
+            break;     
         case 'urs_who':
             models.push(whatsappModel.MessageText("Conheça Lian, nossa assistente digital avançada 🚀, treinada para ser sua educadora pessoal. Lian é especialista em analisar documentos e extrair informações cruciais, oferecendo suporte automatizado para otimizar a gestão dos seus contratos. Com ela, você tem à disposição uma ferramenta poderosa para facilitar seu dia a dia. 😉", number));
             break;  
