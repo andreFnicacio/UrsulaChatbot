@@ -1,7 +1,8 @@
+require('dotenv').config();
 const redis = require('redis');
 
 const client = redis.createClient({
-    url: 'redis://default:GGiaQfgExCDgSbVUWAgSPJvSFqRECjou@junction.proxy.rlwy.net:18899', // ajuste isso para a URL do seu servidor Redis
+    url: process.env.REDIS_URL, // Pega a URL do Redis do arquivo .env
     socket: {
         connectTimeout: 50000
     }
